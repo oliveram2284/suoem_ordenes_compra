@@ -1,2 +1,2 @@
-# fastram
-Sistema de Prestamos para Sindicato de Municipales de la Ciudad de San juan
+# SUOEM WebApp de Validación de Ordenes de Compra
+Sistema de Validación de Ordenes de Compra
