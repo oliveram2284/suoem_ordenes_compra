@@ -31,14 +31,14 @@
                     <div class="flex">
                         <div class="aside-content slim-scroll">
                             <ul class="metisMenu" id="metisMenu">
-                                <li>
+                               <!-- <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
                                         <span class="nav-text">
                                             Ordenes 
                                         </span>
                                     </a>
-                                </li><!--Menu-item-->
+                                </li>
 
                                 <li>
                                     <i class="icon-Money-Bag nav-thumbnail"></i>
@@ -47,7 +47,7 @@
                                             Comercios 
                                         </span>
                                     </a>
-                                </li><!--Menu-item-->
+                                </li>
                                 
                                 <li>
                                     <i class="icon-Money-Bag nav-thumbnail"></i>
@@ -56,16 +56,16 @@
                                             Mensajes 
                                         </span>
                                     </a>
-                                </li><!--Menu-item-->                                
+                                </li>Menu-item-->                                
                                 <li>
                                     <i class="icon-User nav-thumbnail"></i>
-                                    <a href="<?php echo base_url('/')?>">
+                                    <a href="<?php echo base_url('/user')?>">
                                         <span class="nav-text">
                                             Usuarios
                                         </span>
                                     </a>
                                 </li><!--Menu-item-->
-                                
+                                <!--
                                 <li class="">
                                     <i class="icon-Monitor-Analytics nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
@@ -93,6 +93,7 @@
                                         </li>
                                     </ul>
                                 </li>
+                                -->
                             </ul>
                         </div><!-- aside content end-->
                     </div><!-- aside hidden scroll end-->
