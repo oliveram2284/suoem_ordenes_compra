@@ -31,6 +31,14 @@
                     <div class="flex">
                         <div class="aside-content slim-scroll">
                             <ul class="metisMenu" id="metisMenu">
+                                <li class="">
+                                    <i class="icon-Monitor-Analytics nav-thumbnail"></i>
+                                    <a href="<?php echo base_url('municipio')?>">
+                                        <span class="nav-text">
+                                            Municipios
+                                        </span>
+                                    </a>
+                                </li>
                                <!-- <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
