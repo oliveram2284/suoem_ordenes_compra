@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Adherent extends CI_Controller {
+class Afiliados extends CI_Controller {
 
 	function __construct(){
         parent::__construct();
-        $this->load->model('Adherents');
+        $this->load->model('Afiliadoss');
         //$this->Users->updateSession(true);
         if(!$this->auth->is_logged()){
 			redirect('login', 'refresh');
@@ -14,18 +14,18 @@ class Adherent extends CI_Controller {
 	public function index()
 	{   
 
-        $this->Adherents->checkActivation();
+        $this->Afiliadoss->checkActivation();
 
 		$this->load->view('layout/header');
-        $this->load->view('adherent/index');      
-        $data['scripts'][]='js_library/adherent/index.js';
+        $this->load->view('Afiliados/index');      
+        $data['scripts'][]='js_library/Afiliados/index.js';
 		$this->load->view('layout/footer',$data);
     }
     
     public function datatable_list(){
        
-        $recordsTotal= $this->Adherents->getTotalFiltered($_REQUEST);
-        $data= $this->Adherents->getFiltered($_REQUEST);
+        $recordsTotal= $this->Afiliadoss->getTotalFiltered($_REQUEST);
+        $data= $this->Afiliadoss->getFiltered($_REQUEST);
        
 		$response=array(
 			'draw' => $_REQUEST['draw'],
@@ -39,12 +39,12 @@ class Adherent extends CI_Controller {
 
     public function add(){
 
-        $this->form_validation->set_rules('nro', 'Nro Adherente','required|numeric|min_length[1]|max_length[12]|is_unique[adherents.nro]'
-            /*'required|is_unique[adherents.nro]'*/,
+        $this->form_validation->set_rules('nro', 'Nro Afiliadose','required|numeric|min_length[1]|max_length[12]|is_unique[Afiliadoss.nro]'
+            /*'required|is_unique[Afiliadoss.nro]'*/,
             array(
-                'required'      => 'Nro Adherente es obligatorio.',
-                'numeric'       => 'El Nro Adherente No puede.',
-                'is_unique'     => 'El Nro Adherente ya existe.'
+                'required'      => 'Nro Afiliadose es obligatorio.',
+                'numeric'       => 'El Nro Afiliadose No puede.',
+                'is_unique'     => 'El Nro Afiliadose ya existe.'
             )
         );
         $this->form_validation->set_rules('firstname', 'Nombre',
@@ -111,33 +111,33 @@ class Adherent extends CI_Controller {
 		{      
 
             
-            if( $this->Adherents->add() ){
-                $this->session->set_flashdata('msg', 'Nuevo Adherente Agregado');                
-                redirect('adherent');
+            if( $this->Afiliadoss->add() ){
+                $this->session->set_flashdata('msg', 'Nuevo Afiliadose Agregado');                
+                redirect('Afiliados');
             }
 		}
 		else
 		{
             $this->load->view('layout/header');
-            $data['action'] = "adherent/add";
-            $data['municipios'] = $this->Adherents->getMunicipalidad();
-            $data['item']=$this->Adherents->getNext();
+            $data['action'] = "Afiliados/add";
+            $data['municipios'] = $this->Afiliadoss->getMunicipalidad();
+            $data['item']=$this->Afiliadoss->getNext();
 
-            $data['adherent'] = null;
-            $this->load->view('adherent/form',$data);    
+            $data['Afiliados'] = null;
+            $this->load->view('Afiliados/form',$data);    
             
-            $data['scripts'][]='js_library/adherent/add.js';
+            $data['scripts'][]='js_library/Afiliados/add.js';
             $this->load->view('layout/footer',$data);
         }
     }
 
     public function edit($id){
         
-        $this->form_validation->set_rules('nro', 'Nro Adherente','required|numeric|min_length[1]|max_length[12]'
-            /*'required|is_unique[adherents.nro]'*/,
+        $this->form_validation->set_rules('nro', 'Nro Afiliadose','required|numeric|min_length[1]|max_length[12]'
+            /*'required|is_unique[Afiliadoss.nro]'*/,
             array(
-                'required'      => 'Nro Adherente es obligatorio.',
-                'numeric'       => 'El Nro Adherente No puede.',                
+                'required'      => 'Nro Afiliadose es obligatorio.',
+                'numeric'       => 'El Nro Afiliadose No puede.',                
             )
         );
         $this->form_validation->set_rules('firstname', 'Nombre',
@@ -173,23 +173,23 @@ class Adherent extends CI_Controller {
         );
         if ($this->form_validation->run())
 		{      
-            if( $this->Adherents->update($id,$this->input->post()) ){
-                $this->session->set_flashdata('msg', 'Adherente Actualizado');                
-                redirect('adherent');
+            if( $this->Afiliadoss->update($id,$this->input->post()) ){
+                $this->session->set_flashdata('msg', 'Afiliadose Actualizado');                
+                redirect('Afiliados');
             }
 		}
 		else
 		{
             $this->load->view('layout/header');
             $data['action'] = current_url();
-            $data['municipios'] = $this->Adherents->getMunicipalidad();
-            $data['item']=$this->Adherents->getNext();
-            $adherent =$this->Adherents->getById($id);
+            $data['municipios'] = $this->Afiliadoss->getMunicipalidad();
+            $data['item']=$this->Afiliadoss->getNext();
+            $Afiliados =$this->Afiliadoss->getById($id);
            // die("asd");
-            //var_dump($adherent);
-            $data['adherent']=$adherent;
-            $this->load->view('adherent/form',$data);    
-            $data['scripts'][]='js_library/adherent/add.js';
+            //var_dump($Afiliados);
+            $data['Afiliados']=$Afiliados;
+            $this->load->view('Afiliados/form',$data);    
+            $data['scripts'][]='js_library/Afiliados/add.js';
             $this->load->view('layout/footer',$data);
         }
     }
@@ -215,8 +215,8 @@ class Adherent extends CI_Controller {
             $data = array('upload_data' => $this->upload->data());
             $result_import= $this->excelci->import($data['upload_data']['full_path']);
             $message ="<p> Total de Filas Procesadas ".$result_import['total_rows']."<br>"  ; 
-            $message.="<p> Adherentes Nuevos ".$result_import['inserted']."<br>"  ; 
-            $message.="<p> Adherentes Actualizados ".$result_import['updated']."<br>"  ; 
+            $message.="<p> Afiliadoses Nuevos ".$result_import['inserted']."<br>"  ; 
+            $message.="<p> Afiliadoses Actualizados ".$result_import['updated']."<br>"  ; 
             $this->session->set_flashdata('msg', $message);
             
 
@@ -227,8 +227,8 @@ class Adherent extends CI_Controller {
         }
 
         $this->load->view('layout/header');
-        $data['action'] = "adherent/import";
-        $this->load->view('adherent/import',$data);   
+        $data['action'] = "Afiliados/import";
+        $this->load->view('Afiliados/import',$data);   
            
         $data['scripts'][]=array();
 		$this->load->view('layout/footer',$data);
@@ -238,28 +238,28 @@ class Adherent extends CI_Controller {
 
     public function delete($id)
 	{	
-		if($this->Adherents->delete($id)){
-			$this->session->set_flashdata('msg', '<b>Adherente Eliminado</b>');		
+		if($this->Afiliadoss->delete($id)){
+			$this->session->set_flashdata('msg', '<b>Afiliadose Eliminado</b>');		
 		}else{
-			$this->session->set_flashdata('msg', 'No se pudo Eliminar a este Adherente');		
+			$this->session->set_flashdata('msg', 'No se pudo Eliminar a este Afiliadose');		
 		}
-		redirect('adherent');
+		redirect('Afiliados');
     }
     
     public function search($key=null,$id=null){
         switch($key){
             case 'nro':{
-                $adherent =$this->Adherents->getById($id);
-                echo json_encode(array('status'=>'true','adherent'=>$adherent));
+                $Afiliados =$this->Afiliadoss->getById($id);
+                echo json_encode(array('status'=>'true','Afiliados'=>$Afiliados));
                 break;
             }
             case 'name':{
-                $adherent =$this->Adherents->getByName($id);
-                echo json_encode(array('status'=>'true','results'=>$adherent));
+                $Afiliados =$this->Afiliadoss->getByName($id);
+                echo json_encode(array('status'=>'true','results'=>$Afiliados));
                 break;
             }
             default:{
-                echo json_encode(array('status'=>'false','adherent'=>array()));
+                echo json_encode(array('status'=>'false','Afiliados'=>array()));
                 break;
             }
         }       
@@ -270,11 +270,11 @@ class Adherent extends CI_Controller {
     public function info($id)
     {   
 
-        //this->Adherents->checkActivation();
-        $info['data'] = $this->Adherents->getInfo($id);
+        //this->Afiliadoss->checkActivation();
+        $info['data'] = $this->Afiliadoss->getInfo($id);
 
         $this->load->view('layout/header');
-        $this->load->view('adherent/info', $info);      
+        $this->load->view('Afiliados/info', $info);      
         $data['scripts'][]=null;
         $this->load->view('layout/footer',$data);
     }
@@ -283,49 +283,49 @@ class Adherent extends CI_Controller {
         //echo json_encode('1.pdf');
         $data = $this->input->post();
         $info = array();
-        $info['data'] = $this->Adherents->getInfo($data['id']);
-        $html = $this->load->view('adherent/infoPrint', $info, true);
+        $info['data'] = $this->Afiliadoss->getInfo($data['id']);
+        $html = $this->load->view('Afiliados/infoPrint', $info, true);
 
         //var_dump($html);
 
-        echo json_encode($this->Adherents->imprimirInfo($data, $html));
+        echo json_encode($this->Afiliadoss->imprimirInfo($data, $html));
     }
 
 
 
-    public function imprimirContrato($adherent_id=0){
-        if($adherent_id==0){
+    public function imprimirContrato($Afiliados_id=0){
+        if($Afiliados_id==0){
             return false;
         }
         $data = $this->input->post();
         $info = array();
-        $data = $this->Adherents->getById($adherent_id);
-        $data_muni = $this->Adherents->getInfo($adherent_id);
+        $data = $this->Afiliadoss->getById($Afiliados_id);
+        $data_muni = $this->Afiliadoss->getInfo($Afiliados_id);
        
        
-        $adherente_name=$data['firstname']." ".$data['lastname'];
-        $data_line1=str_pad($adherente_name, (64-strlen($adherente_name)), "_");
-        $adherente_dni="_".$data['dni']."_";
-        $data_line2_1=str_pad($adherente_dni, (20-strlen($adherente_dni)), "_");
-        $adherente_estado=($data['municipality_code']!='15')?  "ACTIVO":"JUBILADO" ;
-        $data_line2_2=str_pad($adherente_estado, (20-strlen($adherente_estado)), "_");        
-        $adherente_legajo=$data['legajo'];
-        $data_line2_3=str_pad($adherente_legajo, (20-strlen($adherente_legajo)), "_");
-        $adherente_muni=$data_muni['adherente']['name'];
-        $data_line3=str_pad($adherente_muni, (64-strlen($adherente_muni)), "_");
-        $adherente_direc=$data_muni['adherente']['address'];
-        $data_line4=str_pad($adherente_direc, (40-strlen($adherente_direc)), "_");
-        $adherente_telefono=$data_muni['adherente']['phone'];
-        $data_line4_1=str_pad($adherente_telefono, (10-strlen($adherente_telefono)), "_");
-        $adherente_email=$data_muni['adherente']['email'];
-        $data_line5=str_pad($adherente_email, (70-strlen($adherente_email)), "_");
+        $Afiliadose_name=$data['firstname']." ".$data['lastname'];
+        $data_line1=str_pad($Afiliadose_name, (64-strlen($Afiliadose_name)), "_");
+        $Afiliadose_dni="_".$data['dni']."_";
+        $data_line2_1=str_pad($Afiliadose_dni, (20-strlen($Afiliadose_dni)), "_");
+        $Afiliadose_estado=($data['municipality_code']!='15')?  "ACTIVO":"JUBILADO" ;
+        $data_line2_2=str_pad($Afiliadose_estado, (20-strlen($Afiliadose_estado)), "_");        
+        $Afiliadose_legajo=$data['legajo'];
+        $data_line2_3=str_pad($Afiliadose_legajo, (20-strlen($Afiliadose_legajo)), "_");
+        $Afiliadose_muni=$data_muni['Afiliadose']['name'];
+        $data_line3=str_pad($Afiliadose_muni, (64-strlen($Afiliadose_muni)), "_");
+        $Afiliadose_direc=$data_muni['Afiliadose']['address'];
+        $data_line4=str_pad($Afiliadose_direc, (40-strlen($Afiliadose_direc)), "_");
+        $Afiliadose_telefono=$data_muni['Afiliadose']['phone'];
+        $data_line4_1=str_pad($Afiliadose_telefono, (10-strlen($Afiliadose_telefono)), "_");
+        $Afiliadose_email=$data_muni['Afiliadose']['email'];
+        $data_line5=str_pad($Afiliadose_email, (70-strlen($Afiliadose_email)), "_");
 
 
         //var_dump(strlen('______________'));
         //echo $html;
         $params=array(
-            'adherent_id'=>$data['nro'],
-            'adherente_name'=>$adherente_name,
+            'Afiliados_id'=>$data['nro'],
+            'Afiliadose_name'=>$Afiliadose_name,
             'data_line1'=>$data_line1,
             'data_line2_1'=>$data_line2_1,
             'data_line2_2'=>$data_line2_2,
@@ -335,9 +335,9 @@ class Adherent extends CI_Controller {
             'data_line4_1'=>$data_line4_1,
             'data_line5'=>$data_line5,
         );
-        $html = $this->load->view('adherent/contrato', $params, true);
+        $html = $this->load->view('Afiliados/contrato', $params, true);
         //die($html);
         //return true;
-        echo json_encode($this->Adherents->print_contrato($params, $html));
+        echo json_encode($this->Afiliadoss->print_contrato($params, $html));
     }
 }

@@ -10,7 +10,7 @@
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
-                                <h2>Usuarios</h2>
+                                <h2>Grupos de Usuarios</h2>
                             </div>
                         </div>
                     </div>
@@ -31,32 +31,40 @@
 </div>
 <div class="page-content">
     <div class="container-fluid">
-        <a href="<?php echo base_url('user/add');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2 pull-right">
-            <i class="icon-Add-User"></i>Agregar
-        </a>
-        <a href="<?php echo base_url('user/grupos');?>" class="bt-add btn btn-success float-lg-right mr-1 mb-2">
-            <i class="icon-Users"></i>grupos
-        </a>
+    <a href="<?php echo base_url('user/grupos_add');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
+                <i class="icon-Add-User"></i>Agregar
+            </a>
         <div class="bg-white table-responsive rounded shadow-sm pt-3 pb-3 mb-30">
             <?php if($this->session->flashdata('msg')): ?>
                 <div class="alert alert-success" role="alert">
                     <?php echo $this->session->flashdata('msg'); ?>
-                </div>            
+                </div>
+            
             <?php endif;?>
-            <table id="data-table" class="table mb-0 table-striped" cellspacing="0" width="100%">
+            <table id="data-tables" class="table mb-0 table-striped" cellspacing="0" >
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Usuario</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
                     <th>Estado</th>
-                    <th class="center">-</th>
+                    <th class="center">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($grupos as $key=>$group):?>
+                        <tr>
+                            <td class="text-center"><?php echo $key+1?></td>
+                            <td class="text-center"><?php echo $group['name']?></td>
+                            <td class="text-center"><?php echo ($group['status']==1)?'Habilitado':'Deshabilitado'?></td>
+                            <td>
+                                <a href="<?php echo site_url('user/grupos_edit/'.$group['id']);?>" data-id="<?php echo $group['id']?>" class="bt-renew btn-icon-o btn-success radius100 btn-icon-sm mr-2 mb-2" title="Editar"><i class="fa fa-edit"></i></a>
+                                <a href="#" data-id="<?php echo $group['id']?>" class="bt-renew btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Renovar"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
                 </tbody>
             </table>
+
     
         </div>
     </div>

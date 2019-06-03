@@ -60,14 +60,27 @@ class Users extends CI_Model {
                 'type' => 'VARCHAR',
                 'constraint' => '100',
                 'DEFAULT' =>''
-            ),            
+            ),  
+            'permission' => array(
+                'type' => 'TEXT',
+                'DEFAULT' =>''
+            ),             
             'status' => array(
                 'type' => 'INT',
                 'constraint' => 2,
                 'DEFAULT' =>0
             )
         ));
-        $this->dbforge->create_table('user_groups',true);
+        $this->dbforge->create_table('user_groups',true);      
+
+        if (!$this->db->field_exists('permission', 'user_groups')){
+            $fields = array(
+                'permission' => array('type' => 'TEXT','AFTER' => 'name', 'DEFAULT' =>''),
+            );
+            $this->dbforge->add_column('user_groups', $fields);       
+        }
+       
+        
     }
 
 
@@ -192,5 +205,36 @@ class Users extends CI_Model {
         $this->db->order_by('id');
         $query = $this->db->get('user_groups');	
 		return $query->result_array();
+    }
+
+    public function getGroupId($user_group_id){
+        $query = $this->db->get_where('user_groups',array('id'=>$user_group_id));
+        $result =$query->row_array();
+        $result['permission']=json_decode($result['permission'],true);        
+		return $result;
+    }
+
+    public function group_insert($data){
+        $data = array(
+            'name'      => $this->input->post('name'),
+            'permission'    => json_encode($this->input->post('permission'),true),
+            'status'        => '1',
+        );     
+        $this->db->insert('user_groups', $data);
+        $user_group_id=$this->db->insert_id();
+        return $user_group_id;
+    }
+
+    public function group_update($user_group_id,$data){
+        $data = array(
+            'name'      => $this->input->post('name'),
+            'permission'    => json_encode($this->input->post('permission'),true),
+            'status'        => '1',
+        );     
+        return $this->db->update('user_groups', $data, array('id' => $user_group_id));
+    }
+
+    public function grupos_delete($id){
+        return $this->db->delete('user_groups',array('id'=>$id));
     }
 }

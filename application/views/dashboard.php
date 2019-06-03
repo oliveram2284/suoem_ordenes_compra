@@ -30,7 +30,7 @@
                 </div>
                 <div class="page-content">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row invisible">
                             <div class="col-lg-3 mb-3 col-md-4 col-sm-6 col-xs-12 mb-20">                            
                                 <div class="list bg-primary shadow-sm rounded overflow-hidden">
                                     <div class="list-item">
@@ -101,11 +101,11 @@
                                 </div>
                             </div><!--col-->
                         </div>
-                        <div class="title-sep sep-body mb-30">
+                        <div class="title-sep sep-body mb-30 invisible">
                             <span>Historial</span>
                         </div>
                         
-                        <div class="row">
+                        <div class="row invisible">
                             <div class="col-lg-4">
                                 <div class="portlet-box portlet-gutter  mb-30 p-3   rounded">
                                     <div class="portlet-header flex-row flex full-height d-flex align-items-center b-b">
