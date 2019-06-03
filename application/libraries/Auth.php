@@ -34,4 +34,18 @@ class Auth{
         return true;
     }
 
+    public function permisos(){
+        $result=$this->ci->Users->getGroupId($this->ci->session->userdata['user_group_id']);        
+        return (isset($result['permission']))?$result['permission']:null;
+    }
+    public function allow($accion){
+        $result=$this->ci->Users->getGroupId($this->ci->session->userdata['user_group_id']);   
+        
+        if(in_array(ucfirst($accion),$result['permission']['access'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -22,6 +22,7 @@
         
     </head>
     <body class="pace-done">
+    
         <div class="page-wrapper" id="page-wrapper">
             <aside id="page-aside" class=" page-aside ">
                 <div class="sidenav whiteNav">
@@ -31,15 +32,32 @@
                     <div class="flex">
                         <div class="aside-content slim-scroll">
                             <ul class="metisMenu" id="metisMenu">
-                                <li class="">
-                                    <i class="icon-Monitor-Analytics nav-thumbnail"></i>
-                                    <a href="<?php echo base_url('municipio')?>">
-                                        <span class="nav-text">
-                                            Municipios
-                                        </span>
-                                    </a>
-                                </li>
-                               <!-- <li class="">
+                                <?php if($this->auth->allow('municipio')):?>
+                                    <li class="">
+                                        <i class="icon-Monitor-Analytics nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('municipio')?>">
+                                            <span class="nav-text">
+                                                Municipios
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+                                <?php if($this->auth->allow('user')):?>
+                                    <li>
+                                        <i class="icon-User nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('/user')?>">
+                                            <span class="nav-text">
+                                                Usuarios
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+
+                                
+
+
+
+                                <!-- <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
                                         <span class="nav-text">
@@ -65,14 +83,7 @@
                                         </span>
                                     </a>
                                 </li>Menu-item-->                                
-                                <li>
-                                    <i class="icon-User nav-thumbnail"></i>
-                                    <a href="<?php echo base_url('/user')?>">
-                                        <span class="nav-text">
-                                            Usuarios
-                                        </span>
-                                    </a>
-                                </li><!--Menu-item-->
+                                <!--Menu-item-->
                                 <!--
                                 <li class="">
                                     <i class="icon-Monitor-Analytics nav-thumbnail"></i>

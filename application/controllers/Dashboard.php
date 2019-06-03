@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller {
 		parent::__construct();
 		//$this->load->model('Adherents');
 		//$this->load->model('Aportes');
-	//	$this->load->model('Asistencias');
+		//$this->load->model('Asistencias');
 		
 		
     }
@@ -15,6 +15,8 @@ class Dashboard extends CI_Controller {
 		if(!$this->auth->is_logged()){
 			redirect('login', 'refresh');
 		}
+		$permisos=$this->auth->permisos();
+
 		$data['totals']=array(
 			'adherents'=>0,
 			'aporte'=>0,
@@ -23,8 +25,9 @@ class Dashboard extends CI_Controller {
 		$data['adherentes_ultimos']= array();
 		$data['recent_activities']= array();
 		
+		
 
-		$this->load->view('layout/header');
+		$this->load->view('layout/header',array('permisos'=>$permisos));
 		$this->load->view('dashboard',$data);
 		$this->load->view('layout/footer');
 	}
