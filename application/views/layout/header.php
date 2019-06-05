@@ -53,6 +53,18 @@
                                     </li>
                                 <?php endif;?>
 
+
+                                <?php if($this->auth->allow('comercio')):?>
+                                    <li>
+                                        <i class="icon-User nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('/comercio')?>">
+                                            <span class="nav-text">
+                                                Comercios
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+
                                 
 
 
