@@ -34,14 +34,16 @@
         <a href="<?php echo base_url('comercio/add');?>" class="bt-add btn btn-dark float-lg-right mr-1 mb-2">
             <i class="icon-Add-File"></i>Agregar
         </a>
-        <div class="bg-white table-responsive rounded shadow-sm pt-3 ">
+        <div class="bg-white table-responsive rounded shadow-sm pt-3 pb-3 mb-30">
             <?php if($this->session->flashdata('msg')): ?>
                 <div class="alert alert-success" role="alert">
                     <?php echo $this->session->flashdata('msg'); ?>
                 </div>
             
             <?php endif;?>
-            <table id="data-tablesw" class="table mb-0 table-striped table-bordered cell-border compact stripe" cellspacing="0" width="100%">
+            <div class="row">
+            </div>
+            <table id="data-table" class="table mb-0 table-striped cell-border compact stripe table-sm mb-0" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th  class="text-center" >Código</th>
@@ -60,15 +62,17 @@
                                 <td><?php echo $comercio->nombre?></td>
                                 <td><?php echo $comercio->razon_social?></td>
                                 <td><?php echo $comercio->cuit?></td>
-                                <td><?php echo $comercio->estado?></td>
-                                <td></td>
+                                <td class="text-center"><?php echo $comercio->estado?></td>
+                                <td>
+                                <a href="<?php echo site_url('comercio/edit/'.$comercio->id);?>" class="bt-edit btn-icon-o btn-success radius100 btn-icon-sm mr-2 mb-2" title="Editar"><i class="fa fa-edit"></i></a>
+                                <a href="<?php echo site_url('comercio/delete/'.$comercio->id);?>" class="bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>
+                                <a href="<?php echo site_url('comercio/edit'.$comercio->id);?>" class="invisible bt-info btn-icon-o btn-warning radius100 btn-icon-sm mr-2 mb-2" title="Informe"><i class="fa fa-address-book"></i></a>
+                                </td>
                             </tr>
                         <?php endforeach;?>
                     </tbody>
                 </tbody>
-            </table>
-
-    
+            </table>    
         </div>
     </div>
 </div>

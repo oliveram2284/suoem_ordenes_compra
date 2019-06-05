@@ -81,10 +81,23 @@ class Comercios extends CI_Model {
         ));
         $this->dbforge->create_table('sucursales',true);
     }
+
+    public function getById($id=null){
+        if(!$id){
+            return false;
+        }
+
+        $query = $this->db->get_where('comercios',array('id'=>$id));
+        $result = $query->row_array();
+        
+        return $result;
+    }
     public function getAll(){
         $query = $this->db->get('comercios');
         return $query->result();
     }
+
+
     public function add($data=false){
         
         $params=$data;
@@ -92,5 +105,20 @@ class Comercios extends CI_Model {
         $params['estado']='1';
         return $this->db->insert('comercios', $params);
     }
+
+    public function update($id , $params = false)
+    {       
+        $user=$this->getById($id);       
+
+        return $this->db->update('comercios', $params, array('id' => $id));
+    }
+
+
+    public function delete($id=false){
+        return $this->db->delete('comercios',array('id'=>$id));
+    }
+
+
+
 
 }
