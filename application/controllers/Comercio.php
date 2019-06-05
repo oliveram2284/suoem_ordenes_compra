@@ -18,7 +18,7 @@ class Comercio extends CI_Controller {
 
         $this->load->view('layout/header');
         $data['comercios']=$this->Comercios->getAll();       
-        $this->load->view('Comercios/index',$data);      
+        $this->load->view('comercios/index',$data);      
         $data['scripts'][]='js_library/Comercio/index.js';
 		$this->load->view('layout/footer',$data);
     }
@@ -40,7 +40,7 @@ class Comercio extends CI_Controller {
 
     public function add(){
 
-        $this->form_validation->set_rules('codigo', 'Código de Comercio ','required|numeric|min_length[1]|max_length[12]|is_unique[Comercios.codigo]',
+        $this->form_validation->set_rules('codigo', 'Código de Comercio ','required|numeric|min_length[1]|max_length[12]|is_unique[comercios.codigo]',
            
             array(
                 'required'      => 'Código de Comercio es obligatorio.',
@@ -86,7 +86,7 @@ class Comercio extends CI_Controller {
             
 
             $data['comercio'] = null;
-            $this->load->view('Comercios/form',$data);    
+            $this->load->view('comercios/form',$data);    
             
             $data['scripts'][]='';//'js_library/Afiliados/add.js';
             $this->load->view('layout/footer',$data);
@@ -136,7 +136,7 @@ class Comercio extends CI_Controller {
             
             $comercio =$this->Comercios->getById($id);
             $data['comercio']=$comercio;
-            $this->load->view('Comercios/form',$data);    
+            $this->load->view('comercios/form',$data);    
             $data['scripts'][]='js_library/Afiliados/add.js';
             $this->load->view('layout/footer',$data);
         }
