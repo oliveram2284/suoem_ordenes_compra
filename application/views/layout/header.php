@@ -65,11 +65,35 @@
                                     </li>
                                 <?php endif;?>
 
-                                
+                                <li class="">
+                                    <i class="icon-Affiliate nav-thumbnail"></i>
+                                    <a href="<?php echo base_url('/afiliado')?>">
+                                        <span class="nav-text">
+                                            Afiliados 
+                                        </span>
+                                    </a>
+                                </li>
 
 
 
                                 <!-- <li class="">
+                                <li class="">
+                                    <i class="icon-Monitor-Analytics nav-thumbnail"></i>
+                                    <a href="<?php echo base_url('municipio')?>">
+                                        <span class="nav-text">
+                                            Municipios
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <i class="icon-Affiliate nav-thumbnail"></i>
+                                    <a href="<?php echo base_url('/afiliado')?>">
+                                        <span class="nav-text">
+                                            Afiliados 
+                                        </span>
+                                    </a>
+                                </li>
+                               <!-- <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
                                         <span class="nav-text">
