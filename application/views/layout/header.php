@@ -64,7 +64,7 @@
                                         </a>
                                     </li>
                                 <?php endif;?>
-
+                                <?php if($this->auth->allow('afiliado')):?>
                                 <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/afiliado')?>">
@@ -73,7 +73,7 @@
                                         </span>
                                     </a>
                                 </li>
-
+                                <?php endif;?>
 
 
                                 <!-- <li class="">
@@ -92,8 +92,7 @@
                                             Afiliados 
                                         </span>
                                     </a>
-                                </li>
-                               <!-- <li class="">
+                                </li> <li class="">
                                     <i class="icon-Affiliate nav-thumbnail"></i>
                                     <a href="<?php echo base_url('/')?>">
                                         <span class="nav-text">
