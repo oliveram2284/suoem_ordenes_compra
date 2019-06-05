@@ -102,4 +102,11 @@ class Municipios extends CI_Model {
     public function delete($id=false){
         return $this->db->delete('municipios',array('id'=>$id));
     }
+
+    public function getMunicipalidad(){
+        $this->db->select('id,code,nombre');
+        $this->db->order_by('id','asc');
+        $query = $this->db->get('municipios');	
+		return $query->result_array();
+    }
 }

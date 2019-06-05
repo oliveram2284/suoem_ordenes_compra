@@ -10,7 +10,7 @@
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
-                                <h2>Adherentes</h2>
+                                <h2>Afiliados</h2>
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                     <ol class="breadcrumb no-padding bg-trans mb-30">
                         <li class="breadcrumb-item"><a href="index.html"><i class="icon-Home mr-2 fs14"></i></a></li>
                         <li class="breadcrumb-item"><a href="<?php echo base_url('/')?>">Inicio</a></li>
-                        <li class="breadcrumb-item active">Adhrentes</li>
+                        <li class="breadcrumb-item active">Afiliados</li>
                     </ol>
                 </nav>
             </div>
@@ -31,12 +31,14 @@
 </div>
 <div class="page-content">
     <div class="container-fluid">
-        <a href="<?php echo base_url('adherent/add');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
+        <a href="<?php echo base_url('afiliado/add');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
             <i class="icon-Add-User"></i>Agregar
         </a>
-        <a href="<?php echo base_url('adherent/import');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
+        <!--
+        <a href="<?php echo base_url('afiliado/import');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
             <i class="icon-upload"></i>Importar
         </a>
+        -->
         <div class="bg-white table-responsive rounded shadow-sm pt-3 pb-3 mb-30">
             <?php if($this->session->flashdata('msg')): ?>
                 <div class="alert alert-success" role="alert">
@@ -48,11 +50,11 @@
                 <thead>
                 <tr>
                     <th  class="text-center" >#</th>
-                    <th  class="text-center">Adhrente</th>
+                    <th  class="text-center">Afiliado</th>
                     <th  class="text-center">Legajo</th>
                     <th  class="text-center">Municipio</th>
-                    <th  class="text-center">Fecha Adhesíon</th>
-                    <th  class="text-center">Fecha Activacíon</th>
+                    <th  class="text-center">Fecha Alta</th>
+                    <!--<th  class="text-center">Fecha Activacíon</th>-->
                     <th  class="text-center">Estado</th>
                     <th class="text-center">-</th>
                 </tr>
