@@ -119,6 +119,23 @@ class Comercios extends CI_Model {
     }
 
 
+    public function getByName($name=''){
+        if(!$name){
+            return array();
+        }
+
+        $this->db->select("c.codigo as id, c.nombre as text ");
+        $this->db->from('comercios c');
+        //$this->db->join('aportes as ap','ap.adherent_nro=ad.nro','left');
+        //$this->db->where('ap.nro IS NULL');
+        $this->db->like('LOWER(c.nombre)',$name);
+        $this->db->or_like('LOWER(c.razon_social)',$name);
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        return  $query->result_array();
+    }
+
+
 
 
 }

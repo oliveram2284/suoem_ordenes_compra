@@ -207,12 +207,12 @@ class Afiliado extends CI_Controller {
     public function search($key=null,$id=null){
         switch($key){
             case 'nro':{
-                $afiliado =$this->Adherents->getById($id);
+                $afiliado =$this->Afiliados->getById($id);
                 echo json_encode(array('status'=>'true','afiliado'=>$afiliado));
                 break;
             }
             case 'name':{
-                $afiliado =$this->Adherents->getByName($id);
+                $afiliado =$this->Afiliados->getByName($id);
                 echo json_encode(array('status'=>'true','results'=>$afiliado));
                 break;
             }

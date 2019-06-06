@@ -182,6 +182,27 @@ class Comercio extends CI_Controller {
 
     } */
 
+
+    public function search($key=null,$id=null){
+        switch($key){
+            case 'nro':{
+                $afiliado =$this->Comercios->getById($id);
+                echo json_encode(array('status'=>'true','afiliado'=>$afiliado));
+                break;
+            }
+            case 'name':{
+                $afiliado =$this->Comercios->getByName($id);
+                echo json_encode(array('status'=>'true','results'=>$afiliado));
+                break;
+            }
+            default:{
+                echo json_encode(array('status'=>'false','afiliado'=>array()));
+                break;
+            }
+        }       
+        
+    }
+
     public function delete($id)
 	{	
 		if($this->Comercios->delete($id)){
@@ -210,5 +231,9 @@ class Comercio extends CI_Controller {
         $html = $this->load->view('Afiliados/infoPrint', $info, true);
         echo json_encode($this->Afiliadoss->imprimirInfo($data, $html));
     }
+
+
+
+    
     
 }

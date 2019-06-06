@@ -5883,9 +5883,9 @@ Metis menu
     z-index: 2;
     right: 14px;
     top: 0px;
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .metisMenu>li>a {
@@ -8183,6 +8183,11 @@ Layout style for app pages like chat, email etc...
     border-top: 1px solid #e1eaea;
 }
 
+
+
+.select2-container .select2-selection--single{
+    height: 34px !important;
+}
 @media (min-width: 992px) {
     .sidebar .flex-column,
     .sidebar-body .flex-column {

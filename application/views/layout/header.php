@@ -26,15 +26,55 @@
         <div class="page-wrapper" id="page-wrapper">
             <aside id="page-aside" class=" page-aside ">
                 <div class="sidenav whiteNav">
-                    <a href="/" class="app-logo d-flex flex flex-row align-items-center overflow-hidden justify-content-center">
+                    <a href="<?php echo base_url('/')?>" class="app-logo d-flex flex flex-row align-items-center overflow-hidden justify-content-center">
                         <img src="<?php  echo base_url();?>assets/images/suoem_head_logo.png" class="img-responsive" alt="FASTraM">
                     </a>
                     <div class="flex">
                         <div class="aside-content slim-scroll">
-                            <ul class="metisMenu" id="metisMenu">
+                            <ul class="metisMenu" id="metisMenu">     
+                            <li>
+                                    <i class="icon-Dashboard nav-thumbnail"></i>
+                                    <a href="<?php echo base_url('/')?>">
+                                        <span class="nav-text">
+                                            Inicio 
+                                        </span>
+                                    </a>
+                                </li>      
+                                <?php if($this->auth->allow('orden')):?>
+                                    <li class="">
+                                        <i class="icon-File-HorizontalText nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('/orden')?>">
+                                            <span class="nav-text">
+                                                Ordenes 
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+                                <?php if($this->auth->allow('afiliado')):?>
+                                    <li class="">
+                                        <i class="icon-Affiliate nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('/afiliado')?>">
+                                            <span class="nav-text">
+                                                Afiliados 
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+                                <?php if($this->auth->allow('comercio')):?>
+                                    <li>
+                                        <i class="icon-Shop-2 nav-thumbnail"></i>
+                                        <a href="<?php echo base_url('/comercio')?>">
+                                            <span class="nav-text">
+                                                Comercios
+                                            </span>
+                                        </a>
+                                    </li>
+                                <?php endif;?>
+                                
+
                                 <?php if($this->auth->allow('municipio')):?>
                                     <li class="">
-                                        <i class="icon-Monitor-Analytics nav-thumbnail"></i>
+                                        <i class="icon-Spot nav-thumbnail"></i>
                                         <a href="<?php echo base_url('municipio')?>">
                                             <span class="nav-text">
                                                 Municipios
@@ -52,30 +92,6 @@
                                         </a>
                                     </li>
                                 <?php endif;?>
-
-
-                                <?php if($this->auth->allow('comercio')):?>
-                                    <li>
-                                        <i class="icon-User nav-thumbnail"></i>
-                                        <a href="<?php echo base_url('/comercio')?>">
-                                            <span class="nav-text">
-                                                Comercios
-                                            </span>
-                                        </a>
-                                    </li>
-                                <?php endif;?>
-                                <?php if($this->auth->allow('afiliado')):?>
-                                <li class="">
-                                    <i class="icon-Affiliate nav-thumbnail"></i>
-                                    <a href="<?php echo base_url('/afiliado')?>">
-                                        <span class="nav-text">
-                                            Afiliados 
-                                        </span>
-                                    </a>
-                                </li>
-                                <?php endif;?>
-
-
                                 <!-- <li class="">
                                 <li class="">
                                     <i class="icon-Monitor-Analytics nav-thumbnail"></i>
