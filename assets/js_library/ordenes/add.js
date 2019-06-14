@@ -29,7 +29,7 @@ $(function() {
     });
 
     // Single Select
-    $("#comercio_name").select2({
+    $("#comercio_id").select2({
         ajax: {
             language: "es",
             //url: 'https://api.github.com/search/repositories',
@@ -51,38 +51,87 @@ $(function() {
 
         }
     });
-    $('#comercio_name').on('select2:select', function(e) {
+    $('#comercio_id').on('select2:select', function(e) {
         var data = e.params.data;
         console.log(data);
         $("#comercio_nombre").val(data.id);
+        $("#comercio_codigo").val(data.codigo);
     });
 
+
+    // Single Select
+    $("#afiliado_id").select2({
+        ajax: {
+            language: "es",
+            //url: 'https://api.github.com/search/repositories',
+            //'url': site_url + 'adherent/search_by_name/',
+            url: function(params) {
+                return site_url + 'afiliado/search/name/' + params.term;
+            },
+            dataType: 'json',
+            select: function(data) {
+                console.log(dada);
+            }
+            /*
+            processResults: function(data) {
+                console.debug("====> AJAX RESPONSE: %o", data);
+                return {
+                    results: data
+                };
+            },*/
+
+        }
+    });
+    $('#afiliado_id').on('select2:select', function(e) {
+        var data = e.params.data;
+        console.log(data);
+        $("#municipio_id").val(data.municipio_id);
+        $("#municipio_nombre").val(data.municipio);
+        $("#legajo").val(data.legajo);
+    });
+
+    /*$(document).on('keyup', "#cuotas", function() {
+
+
+    }
+    );*/
+    $(document).on('change','#monto',function(){
+        if ($(this).val().lenght == 0) {
+            $("#monto_total").val(0);
+            $("#monto_total_cuota").val(0);
+            return false;
+        }
+        $('#cuotas').val(1);
+    });
     $(document).on('keyup', "#cuotas", function() {
         if ($(this).val().lenght == 0) {
             $("#monto_total").val(0);
             $("#monto_total_cuota").val(0);
             return false;
         }
-        console.debug("===> #cuotas: %o", $(this).val());
-        var cuotas = $(this).val();
+
+        var cuotas = ($(this).val().lenght!=0)?$(this).val():1;
+        console.log("===> #cuotas: %o", $(this).val().lenght);
+        console.log("===> #cuotas: %o", cuotas);
+        var interes = 0;
 
         var monto = parseFloat($("#monto").val());
-        console.debug("===> #monto: %o", monto);
+        console.log("===> #monto: %o", monto);
 
-        var interes = $("#interes").val().replace(/,/g, '.');
-        console.debug("===> #interes: %o", interes);
+        var interes = 0;//$("#interes").val().replace(/,/g, '.');
+        console.log("===> #interes: %o", interes);
         interes = parseFloat(interes);
-        console.debug("===> #interes: %o", interes);
+        console.log("===> #interes: %o", interes);
 
 
         var porcentual = constante + (interes * cuotas);
         console.debug("===> #porcentual: %o", porcentual);
 
         var total = monto * porcentual;
-        console.debug("===> #total: %o", total);
+        console.log("===> #total: %o", total);
 
         var monto_cuota = total / cuotas;
-        console.debug("===> #monto_cuota: %o", monto_cuota);
+        console.log("===> #monto_cuota: %o", monto_cuota);
 
         $("#monto_total").val(total.toFixed(2));
         $("#monto_total_cuota").val(monto_cuota.toFixed(2));

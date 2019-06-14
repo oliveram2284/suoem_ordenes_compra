@@ -108,12 +108,12 @@
 
 
                     <div class="form-group row">
-                        <label for="observacion" class="col-sm-2 col-form-label">Observación</label>
+                        <label for="observation" class="col-sm-2 col-form-label">Observación</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" id="observacion" name="observacion" cols="30" rows="5" placeholder="Observacíon sobre el comercioe"><?php echo set_value('observacion',$comercio['observacion']); ?></textarea>
+                            <textarea class="form-control" id="observation" name="observation" cols="30" rows="5" placeholder="Observacíon sobre el comercioe"><?php echo set_value('observation',$comercio['observation']); ?></textarea>
                         </div>
                         <div class="col-sm-4">
-                            <label id="observacion-error" class="error" for="observacion"><?php echo form_error('observacion'); ?></label>
+                            <label id="observation-error" class="error" for="observation"><?php echo form_error('observation'); ?></label>
                         </div>
                     </div>
 

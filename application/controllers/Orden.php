@@ -26,8 +26,8 @@ class Orden extends CI_Controller {
 
     public function datatable_list(){
        
-        $recordsTotal=$this->Asistencias->getTotalFiltered($_REQUEST);
-        $data= $this->Asistencias->getFiltered($_REQUEST);
+        $recordsTotal=$this->Ordenes->getTotalFiltered($_REQUEST);
+        $data= $this->Ordenes->getFiltered($_REQUEST);
         
 		$response=array(
 			'draw' => $_REQUEST['draw'],
@@ -42,12 +42,12 @@ class Orden extends CI_Controller {
 
     function add(){
         //if ($this->form_validation->run())
-        $this->form_validation->set_rules('adherent_nro', 'Nro Adherente','required|numeric',
+        /*$this->form_validation->set_rules('adherent_nro', 'Nro Adherente','required|numeric',
             array(
                 'required'      => 'Nro Adherente es obligatorio.',
                 'numeric'       => 'El Nro Adherente No puede.',
             )
-        );
+        );*/
         $this->form_validation->set_rules('monto', 'Monto','required|numeric|min_length[1]',
             array(
                 'required'      => 'Monto es obligatorio.',
@@ -55,13 +55,15 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto debe ser mayor a 1.',
             )
         );
+        /*
         $this->form_validation->set_rules('interes', 'Importe Compensacion','required|min_length[1]',
             array(
                 'required'      => 'Importe Compensacion es obligatorio.',
                 //'numeric'       => 'Importe Compensacion No puede contener Letras.',
                 'min_length'    => 'Importe Compensacion debe ser mayor a 1.',
             )
-        );
+        );*/
+        
         $this->form_validation->set_rules('cuotas', 'Cantidad de Cuotas ','required|numeric|min_length[1]',
             array(
                 'required'      => 'Cantidad de Cuotas es obligatorio.',
@@ -76,6 +78,7 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto de Cuotas debe ser mayor a 1.',
             )
         );
+        /*
         $this->form_validation->set_rules('monto_total', 'Monto Total','required|numeric|min_length[1]',
             array(
                 'required'      => 'Monto Total es obligatorio.',
@@ -94,17 +97,15 @@ class Orden extends CI_Controller {
                 'required'      => 'Fecha comienzo de pago es obligatorio.'
             )
         );
-
+*/
         
 
         if ($this->form_validation->run()){
-            $id = $this->Asistencias->add($this->input->post());
-            if( $id) {
-               
-                $this->session->set_flashdata('msg', 'Nueva Asistencia Financiera se ha creado <a href="'.base_url('Asistencia/imprimirAsistencia/'.$id).'" class="bt-add btn btn-dark float-lg-right mr-1 mb-2">
-                        <i class="icon-Add-File"></i>Imprimir
-                    </a>');                
-                redirect('asistencia');
+         
+            $id = $this->Ordenes->add($this->input->post());           
+            if( $id) {               
+                $this->session->set_flashdata('msg', 'Nueva Orden de Compra se ha creado');                
+                redirect('orden');
             }
 
 		}else{

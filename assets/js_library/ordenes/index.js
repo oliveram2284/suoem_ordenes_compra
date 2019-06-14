@@ -30,13 +30,13 @@ $(document).ready(function() {
         "pagingType": "full_numbers",
         "columnDefs": [
             { "className": "text-left fcol", "targets": [1] },
-            { "className": "text-right", "targets": [7] },
+           /* { "className": "text-right", "targets": [7] },*/
             { "className": "text-center", "targets": "_all" },
         ],
         ajax: {
             'dataType': 'json',
             'method': 'POST',
-            'url': 'asistencia/datatable_list',
+            'url': 'orden/datatable_list',
             'dataSrc': function(response) {
                 console.log(response);
                 console.log(response.data);
@@ -44,24 +44,27 @@ $(document).ready(function() {
                 var permission = $("#permission").val();
                 $.each(response.data, function(index, item) {
                     var col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = '';
-                    col1 = item.id;
-                    col2 = item.fullname;
-                    col3 = parseFloat(item.monto).toFixed(2);
-                    col4 = parseFloat(item.interes).toFixed(3);
-                    col5 = parseFloat(item.monto_total).toFixed(2);
-                    col6 = item.cuotas;
-                    col7 = parseFloat(item.monto_total_cuota).toFixed(2);
+                    col1 = item.nro;
+                    col2 = item.afiliado_nombre;
+                    col3 = item.comercio_nombre;
+                    col4 = parseFloat(item.monto).toFixed(2);
+                    col5 = item.cuotas;
+                    col6 = parseFloat(item.monto_total_cuota).toFixed(2);
+                    col7 = item.fecha_liquidacion;
                     col8 = item.fecha;
                     //col6 = item.date_cancelation;
-                    col9 = (item.status == 1) ? 'Activo' : 'Cancelado';
+                    col9 = (item.estado == 1) ? 'Activo' : 'Cancelado';
                     //col9 = item.status;
-                    col10 = '<a href="#"  data-id="' + item.id + '" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-2 mb-2" title="Ver Historial"><i class="fa fa-eye"></i></a>';
-                    if(item.pagas == 0){
-                        col10 += '<a href="Asistencia/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-warning radius100 btn-icon-sm mr-2 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
-                        col10 += '<a href="#" data-id="' + item.id + '" class="bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
-                    }
-                    col10 += '<a href="Asistencia/imprimirAsistencia/'+item.id+'"" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-2 mb-2" title="Imprimir"><i class="fa fa-print"></i></a>';
-                    /*if (item.cuotas_pagas < item.cuotas) {
+                    col10='Proximamente...';
+                    /*col10 = '<a href="#"  data-id="' + item.id + '" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-eye"></i></a>';
+                   
+                    col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-warning radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
+                    col10 += '<a href="#" data-id="' + item.id + '" class="bt-views bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-1 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
+                    
+                    col10 += '<a href="'+url+'orden/imprimir/'+item.id+'"" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Imprimir"><i class="fa fa-print"></i></a>';
+                   
+                   */
+                   /*if (item.cuotas_pagas < item.cuotas) {
                         col10 += '<a href="#"  data-id="' + item.id + '" class="bt-payfeed btn btn-icon-o btn-teal radius100 btn-icon-sm mr-2 mb-2" title="Pagar Cuota"><i class="fa fa-credit-card"></i></a>';
                     }*/
                     //col8 += '<a href="#" data-id="' + item.id + '" class="bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';

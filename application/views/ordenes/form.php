@@ -6,7 +6,7 @@
                 <div class="list">
                     <div class="list-item pl-0">
                         <div class="list-thumb ml-0 mr-3 pr-3  b-r text-muted">
-                            <i class="icon-User"></i>
+                            <i class="icon-File-HorizontalText"></i>
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
@@ -40,76 +40,78 @@
                     <span class="portlet-subtitle">Complete todos los campos antes de guardar.</span>
                 </div>
             </div>
-            <div class="portlet-body">
+            <div class="portlet-body ">
             
 
                 <?php echo form_open($action,array('method'=>'post')); ?>
                     
-                    <div class="form-group row">
+                    <div class="form-group row bg-gradient-success ">
                         <div class="col-lg-4">
                             <label for="adherent_nro" class="col-form-label">Orden Nº</label>
                             <input type="text" class="form-control"  id="nro" name="nro" value="" placeholder="Orden Nº" >
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col col-4 bg-light align-items-start ">
+                        <div class="col col-4 align-items-start ">
                             <div class="form-row ">                            
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Importe Total</label>
                                     <input type="text" class="form-control" id="monto" name="monto" value="<?php echo set_value('monto'); ?>" placeholder="Importe Total">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Cuotas</label>
                                     <input type="text" class="form-control" id="cuotas" name="cuotas" value="<?php echo set_value('cuotas'); ?>" placeholder="Cuotas">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Valor Cuotas</label>
                                     <input type="text" class="form-control" id="monto_total_cuota" name="monto_total_cuota" value="<?php echo set_value('monto_total_cuota'); ?>" placeholder="Valor Cuotas">
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-4 bg-light">                            
-                            <div class="form-row ">
+                        <div class="col col-3 ">                            
+                            <div class="form-row">
                                 <div class="form-group col-md-5 justify-content-center">
                                         <label for="monto" class="col-form-label">Fecha de Liquidación</label>
-                                        <input type="date" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}-" class="form-control" id="date_added" name="date_added" value="<?php echo set_value('date_added'); ?>" placeholder="Fecha de Solicitud ">
+                                        <input type="date" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}-" class="form-control" id="fecha_liquidacion" name="fecha_liquidacion" value="<?php echo set_value('fecha_liquidacion'); ?>" placeholder="Fecha de Liquidacíon">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col col-8 bg-light align-items-start ">
+                        <div class="col col-8 align-items-start ">
                             <div class="form-row ">
                                 <div class="form-group col-md-5">
                                     <label for="monto" class="col-form-label">Nombre Comercio</label>
-                                    <select class="form-control"  id="comercio_name" name="comercio_name"></select>
+                                    <select class="form-control"  id="comercio_id" name="comercio_id"></select>
                                     <!--
                                     <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Nombre Comercio"> -->
                                 </div>
 
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label for="monto" class="col-form-label">Cod. Nº</label>
-                                    <input type="text" class="form-control text-right" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Cod. Nº">
+                                    <input type="text" class="form-control text-right" id="comercio_codigo" name="comercio_codigo" value=""  placeholder="Cod. Nº">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col col-8 bg-light align-items-start ">
+                        <div class="col col-8 align-items-start ">
                             <div class="form-row ">
                                 <div class="form-group col-md-5">
                                     <label for="monto" class="col-form-label">Afiliado</label>
-                                    <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Nombre Comercio">
+                                    <select class="form-control"  id="afiliado_id" name="afiliado_id"></select>
+                                    <!-- <input type="text" class="form-control" id="afiliado_nombre" name="afiliado_nombre" value=""  placeholder="Afiliado"> -->
                                 </div>
 
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label for="monto" class="col-form-label">Municipio</label>
-                                    <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Cod. Nº">
+                                    <input type="text" class="form-control" id="municipio_nombre" name="municipio_nombre" placeholder="Cod. Nº">
+                                    <input type="hidden" class="form-control" id="municipio_id" name="municipio_id" >
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label for="monto" class="col-form-label">Legajo</label>
-                                    <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Legajo">
+                                    <input type="text" class="form-control" id="legajo" name="legajo" value=""  placeholder="Legajo Nº">
                                 </div>
                             </div>
                         </div>
@@ -202,9 +204,9 @@
 -->                                  
 
            
-                    <div class="form-group row">
-                        <div class="col-sm-8 ">
-                            <a href="<?php echo base_url('asistencia')?>" class="btn btn-info pull-left ">Volver</a>
+                   <div class="row">
+                        <div class="col col-8 align-items-start ">
+                            <a href="<?php echo base_url('asistencia')?>" class="btn btn-info float-left ">Volver</a>
                         
                             <button type="submit" class="btn btn-primary float-right">Guardar</button>
                         </div>

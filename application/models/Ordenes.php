@@ -14,11 +14,22 @@ class Ordenes extends CI_Model {
         //$this->dbforge->create_table('users', TRUE);
         $this->dbforge->add_field('id');
         $this->dbforge->add_field(array(
+
             'nro' => array(
                 'type' => 'INT',
                 'constraint' => 11,
                 'DEFAULT' =>0
-            ),            
+            ),   
+            'afiliado_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),  
+            'comercio_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),           
             'monto' => array(  /// Monto SOlicitado
                 'type' => 'DECIMAL',
                 'constraint' => '15,4',
@@ -64,10 +75,13 @@ class Ordenes extends CI_Model {
                 'constraint' => '15,4',
                 'DEFAULT' =>0
             ),                     
-            'status' => array(
+            'estado' => array(
                 'type' => 'INT',
                 'constraint' => '1',
-                'DEFAULT' =>0
+                'DEFAULT' =>1
+            ),
+            'fecha_liquidacion' => array(
+                'type' => 'DATETIME',
             ),
             'date_added' => array(
                 'type' => 'DATETIME',
@@ -159,16 +173,17 @@ class Ordenes extends CI_Model {
     public function getTotalFiltered($data = null){
        
 		$response = array();
-		$this->db->select("CONCAT(a.firstname,' ',a.lastname) as fullname, a.id as adherent_id,m.*, DATE_FORMAT(m.date_added, '%d-%m-%Y')as fecha");
-        $this->db->from('adherents as a');
-        $this->db->join('asistencias as m ','a.nro=m.adherent_nro');
+		$this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre");
+        $this->db->from('ordenes as o');
+        $this->db->join('afiliados as a ','o.afiliado_id=a.id');
+        $this->db->join('comercios as c ','o.comercio_id=c.id');
         
-		$this->db->where('m.status!= ',2);	
+		//$this->db->where('m.status!= ',2);	
 		if($data['search']['value']!=''){
-            $this->db->or_where('a.nro ',$data['search']['value']);	
+            $this->db->or_where('o.nro ',$data['search']['value']);	
 			$this->db->or_like('a.firstname ',$data['search']['value']);	
 			$this->db->or_like('a.lastname ',$data['search']['value']);
-            $this->db->or_like('DATE_FORMAT(a.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
+            //$this->db->or_like('DATE_FORMAT(a.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
 
 			//$this->db->limit($data['length'],$data['start']);
 		}		
@@ -180,15 +195,17 @@ class Ordenes extends CI_Model {
     public function getFiltered( $data = null){
 
        
-        $this->db->select("CONCAT(a.lastname,' ',a.firstname) as fullname, a.id as adherent_id,m.*, DATE_FORMAT(m.date_added, '%d-%m-%Y')as fecha, (select count(*) from asistencias_cuotas as ac where ac.asistencia_id = m.id and ac.status = 1) as pagas");
-        $this->db->from('adherents as a');
-        $this->db->join('asistencias as m ','a.nro=m.adherent_nro');
+        //$this->db->select("CONCAT(a.lastname,' ',a.firstname) as fullname, a.id as adherent_id,m.*, DATE_FORMAT(m.date_added, '%d-%m-%Y')as fecha, (select count(*) from asistencias_cuotas as ac where ac.asistencia_id = m.id and ac.status = 1) as pagas");
+        $this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha");
+        $this->db->from('ordenes as o');
+        $this->db->join('afiliados as a ','o.afiliado_id=a.id');
+        $this->db->join('comercios as c ','o.comercio_id=c.id');
 
         //var_dump($data['order']);
         
         switch($data['order'][0]['column']){
             case 0:{
-                $this->db->order_by('m.id',$data['order'][0]['dir']);                
+                $this->db->order_by('o.id',$data['order'][0]['dir']);                
                 break;
             }
             case 1:{
@@ -197,23 +214,23 @@ class Ordenes extends CI_Model {
                 break;
             }
             case 2:{
-                $this->db->order_by('m.monto',$data['order'][0]['dir']);               
+                $this->db->order_by('o.monto',$data['order'][0]['dir']);               
                 break;
             }
             case 3:{
-                $this->db->order_by('m.interes',$data['order'][0]['dir']);               
+                $this->db->order_by('o.interes',$data['order'][0]['dir']);               
                 break;
             }
             case 4:{
-                $this->db->order_by('m.monto_total',$data['order'][0]['dir']);               
+                $this->db->order_by('o.monto_total',$data['order'][0]['dir']);               
                 break;
             }
             case 5:{
-                $this->db->order_by('m.cuotas',$data['order'][0]['dir']);               
+                $this->db->order_by('o.cuotas',$data['order'][0]['dir']);               
                 break;
             }
             case 6:{
-                $this->db->order_by('m.monto_parcial_cuota',$data['order'][0]['dir']);               
+                $this->db->order_by('o.monto_parcial_cuota',$data['order'][0]['dir']);               
                 break;
             }
             case 7:{
@@ -226,13 +243,13 @@ class Ordenes extends CI_Model {
         }
        
 		if($data['search']['value']!=''){
-            $this->db->or_where('a.nro ',$data['search']['value']);	
+            $this->db->or_where('o.nro ',$data['search']['value']);	
 			$this->db->or_like('a.firstname ',$data['search']['value']);	
 			$this->db->or_like('a.lastname ',$data['search']['value']);			
-            $this->db->or_like('DATE_FORMAT(m.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
+            //$this->db->or_like('DATE_FORMAT(m.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
 
         }
-        $this->db->where('m.status!= ',2);	    
+        //$this->db->where('m.status!= ',2);	    
 		$this->db->limit($data['length'],$data['start']);
         $query = $this->db->get();
         //die($this->db->last_query());
@@ -245,27 +262,38 @@ class Ordenes extends CI_Model {
         if(empty($data)){
             return false;
         }
-
-        //var_dump($data);
-        //die();
-       // $this->db->trans_off();
+       
+        $this->db->trans_off();
         $this->db->trans_start(false);
         $this->db->trans_strict(FALSE);
-        $data['interes']= str_replace(',', '.', $data['interes']);
-        $params['adherent_nro']=$data['adherent_nro'];
-        $params['interes']=$data['interes'];
-        $params['porcentual']=1+( floatval($data['interes']) * (int)$data['cuotas'] );
+        //$data['interes']= str_replace(',', '.', $data['interes']);
+        $params['nro']=$data['nro'];
+        $params['afiliado_id']=$data['afiliado_id'];
+        $params['comercio_id']=$data['comercio_id'];
+        $params['interes']=0;//$data['interes'];
+        $params['porcentual']=0;//1+( floatval($data['interes']) * (int)$data['cuotas'] );
         $params['monto']=floatval($data['monto']);
         $params['cuotas']=(int)$data['cuotas'];
-        $params['monto_total']=floatval($data['monto_total']);
-        $params['monto_compensacion']=floatval($data['monto_total']) - floatval($data['monto']);
+        $params['monto_total']=floatval($data['monto_total_cuota']);
+        $params['monto_compensacion']=floatval($data['monto_total_cuota']) - floatval($data['monto']);
         $params['monto_parcial_cuota']=$params['monto'] / (int)$data['cuotas'];
         $params['monto_total_cuota']=floatval($data['monto_total_cuota']);
         $params['compensacion_cuota']=$params['monto_compensacion'] / (int)$data['cuotas'];
-        $params['status'] = 1;
-        $params['date_added'] = $data['date_added'];
-        //var_dump($params);
-        if($this->db->insert('asistencias',$params)){
+        $params['estado'] = 1;
+        $params['fecha_liquidacion'] = $data['fecha_liquidacion'];
+        $params['date_added'] = date('Y-m-d');
+       
+        $this->db->insert('ordenes',$params);
+        $orden_id=$this->db->insert_id(); 
+        
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE){
+            log_message('error', 'Error INSERT ORDEN.');
+            // generate an error... or use the log_message() function to log your error
+        } 
+        return $orden_id;
+        /*
+        if($this->db->insert('ordenes',$params)){
 
             $asistencia_id=$this->db->insert_id(); 
             
@@ -292,11 +320,11 @@ class Ordenes extends CI_Model {
                 return $asistencia_id;
             }
 
-            /*if ($this->db->trans_status() === FALSE){
+            /**if ($this->db->trans_status() === FALSE){
                     // generate an error... or use the log_message() function to log your error
-            }*/
+            } 
             
-        }
+    }*/
       
     }
 

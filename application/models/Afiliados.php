@@ -207,9 +207,9 @@ class Afiliados extends CI_Model {
             return array();
         }
 
-        $this->db->select("ad.id as id, CONCAT(ad.lastname,' ',ad.firstname) as text ");
+        $this->db->select("ad.id as id, CONCAT(ad.lastname,' ',ad.firstname) as text, legajo,ad.municipio_id as municipio_id, (select nombre from municipios where code=ad.municipio_id) as municipio");
         $this->db->from('afiliados ad');
-        //$this->db->join('aportes as ap','ap.adherent_nro=ad.nro','left');
+        //$this->db->join('municipios as m','ad.municipio_id=m.code');
         //$this->db->where('ap.nro IS NULL');
         $this->db->like('LOWER(ad.lastname)',$name);
         $this->db->or_like('LOWER(ad.firstname)',$name);
@@ -231,7 +231,7 @@ class Afiliados extends CI_Model {
       
         
         $params['date_added']     = date('Y-m-d H:i:s');
-        $params['date_activation']= date('Y-m-d H:i:s',strtotime($params['date_activation']));
+        $params['date_activation']= date('Y-m-d H:i:s');
         $params['status']         = 0;
         //var_dump($params);
         //$monto=  floatval($params['monto_aporte_inicial']);  //(int)$params['monto_cuota']*(int)$params['nro_cuotas'];

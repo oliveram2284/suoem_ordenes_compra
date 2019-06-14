@@ -6,11 +6,11 @@
                 <div class="list">
                     <div class="list-item pl-0">
                         <div class="list-thumb ml-0 mr-3 pr-3  b-r text-muted">
-                            <i class="icon-Money-2"></i>
+                            <i class="icon-File-HorizontalText"></i>
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
-                                <h2>ASISTENCIA FINANCIERA</h2>
+                                <h2>ORDENES DE COMPRA</h2>
                             </div>
                         </div>
                     </div>
@@ -51,10 +51,10 @@
                     <th  class="text-center">Afiliado</th>
                     <th  class="text-center">Comercio</th>
                     <th  class="text-center">Importe Total</th>
-                    <th  class="text-center">Monto</th>
                     <th  class="text-center">Cuotas</th>
                     <th  class="text-center">Valor Cuotas</th>
                     <th  class="text-center">Fecha De Liquidación</th>
+                    <th  class="text-center">Fecha Agregado</th>
                     <th  class="text-center">Estado</th>
                     <th class="text-center">-</th>
                 </tr>

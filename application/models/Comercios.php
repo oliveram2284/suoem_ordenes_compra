@@ -124,7 +124,7 @@ class Comercios extends CI_Model {
             return array();
         }
 
-        $this->db->select("c.codigo as id, c.nombre as text ");
+        $this->db->select("c.id as id, c.nombre as text, c.codigo as codigo ");
         $this->db->from('comercios c');
         //$this->db->join('aportes as ap','ap.adherent_nro=ad.nro','left');
         //$this->db->where('ap.nro IS NULL');

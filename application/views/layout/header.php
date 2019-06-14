@@ -175,7 +175,7 @@
                 </div><!-- sidenav end-->
             </aside><!-- page-aside end-->
             <main class="content">
-                <header class="navbar page-header darkHeader bg-dark navbar-expand-lg">
+                <header class="navbar page-header darkHeader bg-dark navbar-expand-lg bg-dark">
                     <ul class="nav flex-row mr-auto">
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link sidenav-btn h-lg-down">
