@@ -175,7 +175,7 @@ class Orden extends CI_Controller {
 
         if ($this->form_validation->run()){
 
-            if( $this->Asistencias->edit($this->input->post()) ){
+            if( $this->Ordenes->edit($this->input->post()) ){
                
                 $this->session->set_flashdata('msg', 'Asistencia Financiera N° '.$id.' se ha editado correctamente');                
                 redirect('asistencia');
@@ -185,7 +185,7 @@ class Orden extends CI_Controller {
 
             $this->load->view('layout/header');
             $data['action'] = "asistencia/edit/".$id; 
-            $data['asistencie'] = $this->getArray($id);
+            $data['orden'] = $this->Ordenes->getById($id);
             $this->load->view('asistencia/formedit',$data);    
             $data['scripts'][]='js_library/asistencia/edit.js';
             $data['scripts'][]='Typeahead/bootstrap3-typeahead.js';       

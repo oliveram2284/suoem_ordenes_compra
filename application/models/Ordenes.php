@@ -74,18 +74,35 @@ class Ordenes extends CI_Model {
                 'type' => 'DECIMAL',
                 'constraint' => '15,4',
                 'DEFAULT' =>0
-            ),                     
+            ),    
+            'fecha_liquidacion' => array(
+                'type' => 'DATETIME',
+                'null' => true,
+            ),                 
             'estado' => array(
                 'type' => 'INT',
                 'constraint' => '1',
                 'DEFAULT' =>1
             ),
-            'fecha_liquidacion' => array(
-                'type' => 'DATETIME',
+            'user_id' => array(
+                'type' => 'INT',
+                'constraint' => '4',
+                'DEFAULT' =>0
             ),
+                
             'date_added' => array(
-                'type' => 'DATETIME',
+                'type' => 'TIMESTAMP',
+                
             ),
+            'visto' => array(
+                'type' => 'INT',
+                'constraint' => '1',
+                'DEFAULT' =>0
+            ), 
+            'fecha_visto' => array(
+                'type' => 'DATETIME',
+                'null' => true,
+            ),      
         ));        
         $this->dbforge->create_table('ordenes',true);
         /*
@@ -262,11 +279,15 @@ class Ordenes extends CI_Model {
         if(empty($data)){
             return false;
         }
+        if(!isset($this->session->userdata['id'])){
+            return false;
+        }
        
         $this->db->trans_off();
         $this->db->trans_start(false);
         $this->db->trans_strict(FALSE);
         //$data['interes']= str_replace(',', '.', $data['interes']);
+        
         $params['nro']=$data['nro'];
         $params['afiliado_id']=$data['afiliado_id'];
         $params['comercio_id']=$data['comercio_id'];
@@ -280,9 +301,9 @@ class Ordenes extends CI_Model {
         $params['monto_total_cuota']=floatval($data['monto_total_cuota']);
         $params['compensacion_cuota']=$params['monto_compensacion'] / (int)$data['cuotas'];
         $params['estado'] = 1;
+        $params['user_id'] =$this->session->userdata['id'];
         $params['fecha_liquidacion'] = $data['fecha_liquidacion'];
-        $params['date_added'] = date('Y-m-d');
-       
+        $params['date_added'] = date('Y-m-d');        
         $this->db->insert('ordenes',$params);
         $orden_id=$this->db->insert_id(); 
         

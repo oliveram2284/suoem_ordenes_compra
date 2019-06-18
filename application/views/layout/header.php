@@ -18,8 +18,10 @@
         <link href="<?php  echo base_url();?>assets/lib/select2/dist/css/select2.min.css" rel="stylesheet" />
         <link href="<?php  echo base_url();?>assets/lib/dt-picker/jquery.datetimepicker.min" rel="stylesheet" />
         <link href="<?php  echo base_url();?>assets/lib/sweet-alerts2/sweetalert2.min.css" rel="stylesheet" />
-        <link rel="shortcut icon" href="<?php  echo base_url();?>assets/images/logo.png" type="image/x-icon">
-        
+       <!-- <link rel="shortcut icon" href="<?php  echo base_url();?>assets/images/suoem_logo_header.png" type="image/x-icon"> -->
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
     </head>
     <body class="pace-done">
     
@@ -27,7 +29,7 @@
             <aside id="page-aside" class=" page-aside ">
                 <div class="sidenav whiteNav">
                     <a href="<?php echo base_url('/')?>" class="app-logo d-flex flex flex-row align-items-center overflow-hidden justify-content-center">
-                        <img src="<?php  echo base_url();?>assets/images/suoem_head_logo.png" class="img-responsive" alt="FASTraM">
+                        <img src="<?php  echo base_url();?>assets/images/suoem_compra_logo_sm2.png" class="img-responsive" alt="SUOEM VALIDACION DE ORDENES DE COMPRAS">
                     </a>
                     <div class="flex">
                         <div class="aside-content slim-scroll">
