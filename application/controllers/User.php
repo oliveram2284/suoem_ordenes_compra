@@ -202,7 +202,9 @@ class User extends CI_Controller {
 			'Menu',
 			'index',
 			'Export',
-			'Adherent'
+			'Adherent',
+			'Afiliados',
+			'Setting'
 		);
 
 		$data=array();

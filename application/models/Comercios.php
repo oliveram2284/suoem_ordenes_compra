@@ -54,7 +54,8 @@ class Comercios extends CI_Model {
                 'type' => 'DATETIME',
             )
             
-        ));        
+        ));    
+  
         $this->dbforge->create_table('comercios',true);
 
         $this->dbforge->add_field('id');

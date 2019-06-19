@@ -488,5 +488,24 @@ class Ordenes extends CI_Model {
         
     }
 
+    public function buscarOrden($data = null){
+        $nroOrden = $data['nro'];
 
+        $this->db->select('o.nro, o.monto, DATE_FORMAT(o.date_added, "%d-%m-%Y") as date_added, DATE_FORMAT(o.fecha_liquidacion, "%d-%m-%Y") as fecha_liquidacion, a.firstname, a.lastname, a.legajo, m.nombre, m.code, c.razon_social, c.codigo');
+        $this->db->from('ordenes as o');
+        $this->db->where('nro',$nroOrden);
+        $this->db->join('afiliados as a','a.id=o.afiliado_id');
+        $this->db->join('municipios as m', 'm.id=a.municipio_id');
+        $this->db->join('comercios as c', 'c.id=o.comercio_id');
+        $query=$this->db->get();
+        
+        if($query->num_rows() > 0){
+            //Hay resultados
+            $o = $query->result_array();
+            return $o[0];
+        }
+        else{
+            return false;
+        }
+    }
 }

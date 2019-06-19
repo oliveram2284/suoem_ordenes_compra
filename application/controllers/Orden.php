@@ -259,4 +259,8 @@ class Orden extends CI_Controller {
         echo json_encode($this->Asistencias->print_contrato_asistencia($params, $html));
     }
 
+    public function buscarOrden(){
+        echo json_encode($this->Ordenes->buscarOrden($this->input->post()));
+    }
+
 }
