@@ -51,4 +51,10 @@ class Dashboard extends CI_Controller {
 		
 	}
 
+	public function consulta()
+	{
+		$this->load->view('layout/headerCliente');
+		$this->load->view('layout/footer');
+	}
+
 }
