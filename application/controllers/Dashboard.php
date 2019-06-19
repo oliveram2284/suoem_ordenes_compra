@@ -54,7 +54,10 @@ class Dashboard extends CI_Controller {
 	public function consulta()
 	{
 		$this->load->view('layout/headerCliente');
-		$this->load->view('layout/footer');
+		$this->load->view('comercios/dash');
+		$data['scripts'][]='js_library/comercio/dash.js';
+        $this->load->view('layout/footer',$data);
+		//$this->load->view('layout/footer');
 	}
 
 }

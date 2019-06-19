@@ -491,17 +491,29 @@ class Ordenes extends CI_Model {
     public function buscarOrden($data = null){
         $nroOrden = $data['nro'];
 
-        $this->db->select('o.nro, o.monto, DATE_FORMAT(o.date_added, "%d-%m-%Y") as date_added, DATE_FORMAT(o.fecha_liquidacion, "%d-%m-%Y") as fecha_liquidacion, a.firstname, a.lastname, a.legajo, m.nombre, m.code, c.razon_social, c.codigo');
+        $this->db->select('o.id, o.nro, o.monto, DATE_FORMAT(o.date_added, "%d-%m-%Y") as date_added, DATE_FORMAT(o.fecha_liquidacion, "%d-%m-%Y") as fecha_liquidacion, a.firstname, a.lastname, a.legajo, m.nombre, m.code, c.razon_social, c.codigo, DATE_FORMAT(o.fecha_visto, "%d-%m-%Y %H:%i") as fecha_visto, u.firstname as userfn, u.lastname as userln');
         $this->db->from('ordenes as o');
         $this->db->where('nro',$nroOrden);
         $this->db->join('afiliados as a','a.id=o.afiliado_id');
         $this->db->join('municipios as m', 'm.id=a.municipio_id');
         $this->db->join('comercios as c', 'c.id=o.comercio_id');
+        $this->db->join('users as u', 'u.id=o.user_id');
         $query=$this->db->get();
         
         if($query->num_rows() > 0){
             //Hay resultados
             $o = $query->result_array();
+            if($o[0]['fecha_visto'] == null){
+                $data = array(
+                    'fecha_visto' => date('Y-m-d H:i:s'),
+                    'visto' 	  => 1
+                 );
+
+                if($this->db->update('ordenes', $data, array('id'=>$o[0]['id'])) == false) {
+                    return false;
+                }
+                $o[0]['fecha_visto'] = date('d-m-Y H:i');
+            }
             return $o[0];
         }
         else{
