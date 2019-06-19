@@ -140,7 +140,7 @@ function buscarOrden(){
     $.ajax({
         type: 'POST',
         data: { nro : $('#norden').val() },
-    url: 'orden/buscarOrden',
+    url: '../orden/buscarOrden',
     success: function(result){
                     if(!result){
                         $('#errorCust').fadeIn('slow');
