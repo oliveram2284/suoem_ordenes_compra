@@ -31,6 +31,8 @@ $(document).ready(function() {
         "columnDefs": [
             { "className": "text-left fcol", "targets": [1] },
            /* { "className": "text-right", "targets": [7] },*/
+           
+           { "className": "text-left", "targets": [9] },
             { "className": "text-center", "targets": "_all" },
         ],
         ajax: {
@@ -56,8 +58,14 @@ $(document).ready(function() {
                     col9 = (item.estado == 1) ? 'Activo' : 'Cancelado';
                     //col9 = item.status;
                     //col10='Proximamente...';
+                    
                     col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
                     
+                    if(item.visto==1){
+                        col10 += '<a href="#"  data-id="" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-check"></i></a>';
+
+                    }
+                   
                     /*col10 = '<a href="#"  data-id="' + item.id + '" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-eye"></i></a>';
                    
                     col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-warning radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';

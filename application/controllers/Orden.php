@@ -41,13 +41,7 @@ class Orden extends CI_Controller {
 
 
     function add(){
-        //if ($this->form_validation->run())
-        /*$this->form_validation->set_rules('adherent_nro', 'Nro Adherente','required|numeric',
-            array(
-                'required'      => 'Nro Adherente es obligatorio.',
-                'numeric'       => 'El Nro Adherente No puede.',
-            )
-        );*/
+       
         $this->form_validation->set_rules('monto', 'Monto','required|numeric|min_length[1]',
             array(
                 'required'      => 'Monto es obligatorio.',
@@ -55,15 +49,7 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto debe ser mayor a 1.',
             )
         );
-        /*
-        $this->form_validation->set_rules('interes', 'Importe Compensacion','required|min_length[1]',
-            array(
-                'required'      => 'Importe Compensacion es obligatorio.',
-                //'numeric'       => 'Importe Compensacion No puede contener Letras.',
-                'min_length'    => 'Importe Compensacion debe ser mayor a 1.',
-            )
-        );*/
-        
+                
         $this->form_validation->set_rules('cuotas', 'Cantidad de Cuotas ','required|numeric|min_length[1]',
             array(
                 'required'      => 'Cantidad de Cuotas es obligatorio.',
@@ -78,27 +64,7 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto de Cuotas debe ser mayor a 1.',
             )
         );
-        /*
-        $this->form_validation->set_rules('monto_total', 'Monto Total','required|numeric|min_length[1]',
-            array(
-                'required'      => 'Monto Total es obligatorio.',
-                'numeric'       => 'Monto Total No puede contener Letras.',
-                'min_length'    => 'Monto Total debe ser mayor a 1.',
-            )
-        );
-
-        $this->form_validation->set_rules('date_added', 'Fecha','required',//|regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]',
-            array(
-                'required'      => 'Fecha es obligatorio.'
-            )
-        );
-        $this->form_validation->set_rules('date_pago', 'Fecha P','required',//|regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]',
-            array(
-                'required'      => 'Fecha comienzo de pago es obligatorio.'
-            )
-        );
-*/
-        
+                
 
         if ($this->form_validation->run()){
          
@@ -130,13 +96,7 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto debe ser mayor a 1.',
             )
         );
-        $this->form_validation->set_rules('interes', 'Importe Compensacion','required|min_length[1]',
-            array(
-                'required'      => 'Importe Compensacion es obligatorio.',
-                //'numeric'       => 'Importe Compensacion No puede contener Letras.',
-                'min_length'    => 'Importe Compensacion debe ser mayor a 1.',
-            )
-        );
+                
         $this->form_validation->set_rules('cuotas', 'Cantidad de Cuotas ','required|numeric|min_length[1]',
             array(
                 'required'      => 'Cantidad de Cuotas es obligatorio.',
@@ -151,43 +111,21 @@ class Orden extends CI_Controller {
                 'min_length'    => 'Monto de Cuotas debe ser mayor a 1.',
             )
         );
-        $this->form_validation->set_rules('monto_total', 'Monto Total','required|numeric|min_length[1]',
-            array(
-                'required'      => 'Monto Total es obligatorio.',
-                'numeric'       => 'Monto Total No puede contener Letras.',
-                'min_length'    => 'Monto Total debe ser mayor a 1.',
-            )
-        );
-
-        $this->form_validation->set_rules('date_added', 'Fecha','required',//|regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]',
-            array(
-                'required'      => 'Fecha es obligatorio.'
-            )
-        );
-
-        $this->form_validation->set_rules('date_pago', 'Fecha P','required',//|regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]',
-            array(
-                'required'      => 'Fecha comienzo de pago es obligatorio.'
-            )
-        );
-
         
 
         if ($this->form_validation->run()){
-
-            if( $this->Ordenes->edit($this->input->post()) ){
-               
-                $this->session->set_flashdata('msg', 'Asistencia Financiera N° '.$id.' se ha editado correctamente');                
-                redirect('asistencia');
+            if( $this->Ordenes->edit($id,$this->input->post()) ){               
+                $this->session->set_flashdata('msg', 'Orden N° '.$this->input->post('nro').' se ha editado correctamente');                
+                redirect('orden');
             }
 
         }else{
 
             $this->load->view('layout/header');
-            $data['action'] = "asistencia/edit/".$id; 
-            $data['orden'] = $this->Ordenes->getById($id);
-            $this->load->view('asistencia/formedit',$data);    
-            $data['scripts'][]='js_library/asistencia/edit.js';
+            $data['action'] = "orden/edit/".$id; 
+            $data['data'] = $this->Ordenes->getById($id);
+            $this->load->view('ordenes/form_edit',$data);    
+            $data['scripts'][]='js_library/ordenes/edit.js';
             $data['scripts'][]='Typeahead/bootstrap3-typeahead.js';       
             $this->load->view('layout/footer',$data);
 

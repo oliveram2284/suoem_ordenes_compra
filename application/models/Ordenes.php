@@ -349,32 +349,31 @@ class Ordenes extends CI_Model {
       
     }
 
-    public function edit($data){
+    public function edit($order_id,$data){
         
         if(empty($data)){
             return false;
         }
 
-        var_dump($data);
-        //die();
-       // $this->db->trans_off();
+        
+        
+        // $this->db->trans_off();
         $this->db->trans_start(false);
         $this->db->trans_strict(FALSE);
-        $data['interes']= str_replace(',', '.', $data['interes']);
-        //$params['adherent_nro']=$data['adherent_nro'];
-        $params['interes']=$data['interes'];
-        $params['porcentual']=1+( floatval($data['interes']) * (int)$data['cuotas'] );
+        $params['nro']=$data['nro'];        
         $params['monto']=floatval($data['monto']);
         $params['cuotas']=(int)$data['cuotas'];
-        $params['monto_total']=floatval($data['monto_total']);
-        $params['monto_compensacion']=floatval($data['monto_total']) - floatval($data['monto']);
+        $params['monto_total']=floatval($data['monto_total_cuota']);
+        $params['monto_compensacion']=floatval($data['monto_total_cuota']) - floatval($data['monto']);
         $params['monto_parcial_cuota']=$params['monto'] / (int)$data['cuotas'];
         $params['monto_total_cuota']=floatval($data['monto_total_cuota']);
-        $params['compensacion_cuota']=$params['monto_compensacion'] / (int)$data['cuotas'];
-        $params['status'] = 1;
-        $params['date_added'] = $data['date_added'];
+        $params['compensacion_cuota']=$params['monto_compensacion'] / (int)$data['cuotas'];       
         //var_dump($params);
-        if($this->db->update('asistencias',$params, array('id'=>$data['asistencia_id']))){
+        $this->db->update('ordenes',$params, array('id'=>$order_id));
+        
+        return true;
+        /*    
+        if($this->db->update('ordenes',$params, array('id'=>$order_id))){
 
             $asistencia_id=$data['asistencia_id']; 
             
@@ -405,23 +404,24 @@ class Ordenes extends CI_Model {
                 return $asistencia_id;
             }
 
-            /*if ($this->db->trans_status() === FALSE){
+            if ($this->db->trans_status() === FALSE){
                     // generate an error... or use the log_message() function to log your error
-            }*/
+            }
             
-        }
+        }*/
       
     }
 
-    public function getById($id,$detail){
+    public function getById($id){
         $result=array();
-        $query=$this->db->get_where('asistencias',array('id'=>$id));
-        $result['asistencia']=$query->row_array();
-        $query=$this->db->get_where('adherents',array('nro'=>$result['asistencia']['adherent_nro']));
-       // echo $this->db->last_query();
-        $result['adherente']=$query->row_array();
-        $query=$this->db->get_where('asistencias_cuotas',array('asistencia_id'=>$id));
-        $result['cuotas']=$query->result_array();
+        $query=$this->db->get_where('ordenes',array('id'=>$id));
+        //echo $this->db->last_query();
+        $result['orden']=$query->row_array();       
+        $query=$this->db->get_where('afiliados',array('id'=>$result['orden']['afiliado_id']));        
+        $result['afiliado']=$query->row_array();
+        $query=$this->db->get_where('comercios',array('id'=>$result['orden']['comercio_id']));        
+        $result['comercio']=$query->row_array();
+       
         return $result;
     }
 
