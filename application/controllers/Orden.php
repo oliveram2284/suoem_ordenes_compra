@@ -139,11 +139,11 @@ class Orden extends CI_Controller {
     public function delete($id,$log=null){	
 
         
-		if($this->Asistencias->delete($id,$log)){
-            echo json_encode(array('result'=>true, 'msg'=>'<b>Asistencia Eliminada</b>'));	
+		if($this->Ordenes->delete($id,$log)){
+            echo json_encode(array('result'=>true, 'msg'=>'<b>Orden Eliminada</b>'));	
             //return true;
 		}else{	
-            echo json_encode(array('result'=>false, 'msg'=>'<b>No se pudo Eliminar a este Asistencia</b>'));
+            echo json_encode(array('result'=>false, 'msg'=>'<b>No se pudo Eliminar a este Orden</b>'));
             //return false;	
 		}
 		//redirect('asistencia');

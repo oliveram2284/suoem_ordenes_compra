@@ -60,16 +60,17 @@ $(document).ready(function() {
                     //col10='Proximamente...';
                     
                     col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
+                    col10 += '<a href="#" data-id="' + item.id + '" class="bt-views btn bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-1 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
                     
                     if(item.visto==1){
                         col10 += '<a href="#"  data-id="" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-check"></i></a>';
 
                     }
-                   
+                    
                     /*col10 = '<a href="#"  data-id="' + item.id + '" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-eye"></i></a>';
                    
                     col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-warning radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
-                    col10 += '<a href="#" data-id="' + item.id + '" class="bt-views bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-1 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
+                    col10 += '<a href="#" data-id="' + item.id + '" class=" bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-1 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
                     
                     col10 += '<a href="'+url+'orden/imprimir/'+item.id+'"" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Imprimir"><i class="fa fa-print"></i></a>';
                    
@@ -149,19 +150,19 @@ $(document).ready(function() {
     $(document).on('click', ".bt-delete", function() {
         var id = $(this).data('id');
         swal({
-            title: 'Para eliminar una Asistencia debe ingresar el Motivo',
+            title: 'Para eliminar una Order debe ingresar el Motivo',
             input: 'text',
             inputAttributes: {
               autocapitalize: 'off'
             },
             showCancelButton: true,
-            confirmButtonText: 'Look up',
+            confirmButtonText: 'Borrar',
             showLoaderOnConfirm: true,
             preConfirm: (log) => {
                 console.log("====> text: %o",log);
                 //$.post( url + 'asistencia/delete/' + id,{log:log});
                 
-              return fetch(url + 'asistencia/delete/' + id+'/'+log)
+              return fetch(url + 'orden/delete/' + id+'/'+log)
                 .then(response => {
                   if (!response.ok) {
                    
@@ -170,6 +171,7 @@ $(document).ready(function() {
                   return response.json()
                 })
                 .catch(error => {
+                    console.log("AERRE: %o",error);
                   swal.showValidationMessage(
                     `Request failed: ${error}`
                   )

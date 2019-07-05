@@ -147,9 +147,12 @@ class Ordenes extends CI_Model {
             $this->dbforge->add_column('asistencias_cuotas', $fields); 
         }
 
+        */
+
+        
         $this->dbforge->add_field('id');
         $this->dbforge->add_field(array(
-            'asistencia_id' => array(
+            'orden_id' => array(
                 'type' => 'INT',
                 'constraint' => 11,
                 'DEFAULT' =>0
@@ -159,7 +162,7 @@ class Ordenes extends CI_Model {
                 'constraint' => 11,
                 'DEFAULT' =>0
             ),            
-            'description' => array(   //500
+            'descripcion' => array(   //500
                 'type' => 'TEXT',
                 'DEFAULT' =>null
             ),
@@ -173,8 +176,9 @@ class Ordenes extends CI_Model {
                 'type' => 'DATETIME',
             ),
         ));        
-        $this->dbforge->create_table('asistencias_logs',true);     
-        */
+        $this->dbforge->create_table('orden_logs',true);     
+
+
         
         
         
@@ -266,7 +270,7 @@ class Ordenes extends CI_Model {
             //$this->db->or_like('DATE_FORMAT(m.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
 
         }
-        //$this->db->where('m.status!= ',2);	    
+        $this->db->where('o.estado!= ',2);	    
 		$this->db->limit($data['length'],$data['start']);
         $query = $this->db->get();
         //die($this->db->last_query());
@@ -450,16 +454,16 @@ class Ordenes extends CI_Model {
     public function delete($id=false,$log=null){
 
 
-        if($this->db->update('asistencias',array('status'=>2),array('id' => $id))){
-            $this->db->update('asistencias_cuotas',array('status'=>2),array('asistencia_id' => $id));
+        if($this->db->update('ordenes',array('estado'=>2),array('id' => $id))){
+            //$this->db->update('asistencias_cuotas',array('status'=>2),array('asistencia_id' => $id));
             $params=array(
-                'asistencia_id'=>$id,
+                'orden_id'=>$id,
                 'user_id'=>$this->session->userdata('id'),
-                'description'=>$log,
+                'descripcion'=>$log,
                 'date_added'=>date('Y-m-d H:i:s'),
                 'status'=>1
             );
-            $this->db->insert('asistencias_logs',$params);
+            $this->db->insert('orden_logs',$params);
         }
         
        return true;
