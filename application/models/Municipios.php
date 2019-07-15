@@ -76,6 +76,18 @@ class Municipios extends CI_Model {
         return $result;
     }
 
+    public function getByName($nombre=null){
+        if(!$nombre){
+            return false;
+        }
+
+        $query = $this->db->get_where('municipios',array('LOWER(nombre)'=>strtolower($nombre)));
+        //echo $this->db->last_query();
+        $result = $query->row_array();
+        
+        return $result;
+    }
+
 
     public function update($id , $params = false)
     {               

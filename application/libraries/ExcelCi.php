@@ -30,6 +30,7 @@ class ExcelCi{
     public function __construct(){
         $this->ci =& get_instance();
         $this->ci->load->model('Afiliados');
+        $this->ci->load->model('Municipios');
         
     }
 
@@ -53,15 +54,14 @@ class ExcelCi{
                 continue;
             }
 
-            //var_dump($item);
-
             $date_temp=explode('-',$item['I']); 
+
             $date_added=$date_temp['2'].'-'.$date_temp['1'].'-'.$date_temp['0']; 
             $date_temp=explode('-',$item['J']);
             $date_activation=$date_temp['2'].'-'.$date_temp['1'].'-'.$date_temp['0']; 
              
-
-
+            $municipio=$this->ci->Municipios->getByName($item['G']);
+           
             $data_insert=array(
                 //'nro'=>$item['A'],
                 'lastname'=>$item['B'],
@@ -70,6 +70,7 @@ class ExcelCi{
                 'legajo'=>$item['E'],
                 //'observation'=>$item['H'],
                 //'municipality_code'=>$item['F'],
+                'municipio_id'=>(empty($municipio))?$municipio['id']:1,
                 'date_added'=>( $item['I'] )? date("Y-m-d",strtotime($date_added)) : null,
                 //'date_activation'=>( $item['I'] )? date("Y-m-d",strtotime($date_activation)) : null,
                 'status' => 1
@@ -91,10 +92,11 @@ class ExcelCi{
             }
             
         }
-        
         return array('total_rows'=>$total_rows, 'inserted'=>$total_inserted,'updated'=>$total_updated);
 
     }
+
+
 
     public function import_aportes($inputFileName=false){
         //var_dump($inputFileName);
