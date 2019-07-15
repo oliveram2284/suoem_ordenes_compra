@@ -31,14 +31,23 @@
 </div>
 <div class="page-content">
     <div class="container-fluid">
-        <a href="<?php echo base_url('afiliado/add');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
-            <i class="icon-Add-User"></i>Agregar
-        </a>
-        <!--
-        <a href="<?php echo base_url('afiliado/import');?>" class="bt-add btn btn-info float-lg-right mr-1 mb-2">
-            <i class="icon-upload"></i>Importar
-        </a>
-        -->
+
+        <div class="row">
+            <div class="col-lg-12 text-right">
+            <a href="<?php echo base_url('afiliado/add');?>" class="bt-add btn btn-info  mr-1 mb-2">
+                    <i class="icon-Add-User"></i>Agregar
+                </a>
+                
+                <a href="<?php echo base_url('afiliado/import');?>" class="bt-add btn btn-orange     mr-1 mb-2">
+                    <i class="icon-upload"></i>
+                    <i class="fas fa-file-upload"></i>
+                    <i class="fas fa-upload"></i>
+                    Importar
+                </a>
+            </div>
+        </div>
+       
+        
         <div class="bg-white table-responsive rounded shadow-sm pt-3 pb-3 mb-30">
             <?php if($this->session->flashdata('msg')): ?>
                 <div class="alert alert-success" role="alert">

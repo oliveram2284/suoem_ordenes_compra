@@ -29,7 +29,7 @@ class ExcelCi{
      */
     public function __construct(){
         $this->ci =& get_instance();
-        $this->ci->load->model('Adherents');
+        $this->ci->load->model('Afiliados');
         
     }
 
@@ -63,66 +63,30 @@ class ExcelCi{
 
 
             $data_insert=array(
-                'nro'=>$item['A'],
+                //'nro'=>$item['A'],
                 'lastname'=>$item['B'],
                 'firstname'=>$item['C'],
                 'dni'=>($item['D']!=NULL)?str_replace(',','',$item['D']):'',
                 'legajo'=>$item['E'],
-                'observation'=>$item['H'],
-                'municipality_code'=>$item['F'],
+                //'observation'=>$item['H'],
+                //'municipality_code'=>$item['F'],
                 'date_added'=>( $item['I'] )? date("Y-m-d",strtotime($date_added)) : null,
-                'date_activation'=>( $item['I'] )? date("Y-m-d",strtotime($date_activation)) : null,
+                //'date_activation'=>( $item['I'] )? date("Y-m-d",strtotime($date_activation)) : null,
                 'status' => 1
             );
             //var_dump($data_insert);
             //continue;
-            $this->ci->db->where('nro',$data_insert['nro']);
-            $query=$this->ci->db->get('adherents');
+            $this->ci->db->where('dni',$data_insert['dni']);
+            $query=$this->ci->db->get('afiliados');
             
             if($query->num_rows()!=0){
-                $this->ci->db->where('nro',$data_insert['nro']);
-                $this->ci->db->update('adherents',$data_insert);
+                $this->ci->db->where('dni',$data_insert['dni']);
+                $this->ci->db->update('afiliados',$data_insert);
                 $total_updated++;
             }else{
-                $this->ci->db->insert('adherents',$data_insert);
+                $this->ci->db->insert('afiliados',$data_insert);
                 if($this->ci->db->insert_id()){
                     $total_inserted++;
-
-                    $aporte_data=array(
-                        'adherent_nro'=>$data_insert['nro'],
-                        'monto'=>floatval('6000'),
-                        'cuotas'=>6,
-                        'monto_abonado'=>floatval('6000'),
-                        'cuotas_pagas'=>6,
-                        'monto_abonado'=>floatval('6000'),
-                        'date_added'=>$data_insert['date_activation'],
-                    );
-
-                    $this->ci->db->insert('aportes',$aporte_data);
-                    if($aporte_id=$this->ci->db->insert_id()){
-                        $date_cancelation=null;
-                        for($i=0;$i<$aporte_data['cuotas'];$i++){                            
-                           
-                            $date_temp=strtotime($data_insert['date_activation']);
-                            $date_added = date("Y-m-d", strtotime("+".$i." month", $date_temp));
-                            $date_cancelation = $date_added;
-                            //var_dump($date_added);
-                            $cuotas_data=array(
-                                'aporte_id'=>$aporte_id,
-                                'monto'=>$aporte_data['monto']/$aporte_data['cuotas'],
-                                'date_added'=>$date_added
-                            );
-                            $this->ci->db->insert('aporte_cuotas',$cuotas_data);
-                    
-                        }
-
-
-                        if($date_cancelation!=null){
-                            $this->ci->db->update('aportes',array('date_cancelation'=>$date_cancelation),array('id' => $aporte_id));
-                        }
-
-                    }
-                    //var_dump();
                 }
             }
             

@@ -5,6 +5,7 @@ class Afiliado extends CI_Controller {
 
 	function __construct(){
         parent::__construct();
+        //$this->output->enable_profiler(TRUE);
         $this->load->model('Afiliados');
         $this->load->model('Municipios');
         //$this->Users->updateSession(true);
@@ -151,12 +152,14 @@ class Afiliado extends CI_Controller {
             $this->load->view('layout/footer',$data);
         }
     }
-    /*
+    
     public function import(){        
 
         
         $this->load->library('ExcelCi');
-        $upload_path='./assets/uploads/';        
+        
+        $upload_path='./assets/uploads/';  
+              
         if(!file_exists($upload_path)){
             mkdir($upload_path);
         }
@@ -167,6 +170,7 @@ class Afiliado extends CI_Controller {
         $this->load->library('upload', $config);
         $data = array('upload_data' => $this->upload->data());
         //var_dump($data['upload_data']);
+        
         if ($this->upload->do_upload('import_file') )
         {
 
@@ -193,7 +197,7 @@ class Afiliado extends CI_Controller {
         
 
     }
-    */
+    
     public function delete($id)
 	{	
 		if($this->Afiliados->delete($id)){
@@ -299,4 +303,5 @@ class Afiliado extends CI_Controller {
         echo json_encode($this->Afiliados->print_contrato($params, $html));
     }
     */
+
 }

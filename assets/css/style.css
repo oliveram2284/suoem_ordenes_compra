@@ -1246,7 +1246,7 @@ a.text-pink:hover {
 
 .list .list-item .list-thumb i{
 
-    color:#868aa8;
+    color:#03A9F4;
     font-weight: bold;
 }
 
@@ -2298,6 +2298,29 @@ Buttons style
     box-shadow: 0px 5px 10px 2px rgba(243, 215, 104, 0.24) !important;
 }
 
+
+
+.btn.btn-orange {
+    color: #fff;
+    background-color: #ef8a27;
+    border-color: rgba(223, 193, 74, 0.7);
+}
+
+.btn.btn-orange:hover,
+.btn.btn-orange:focus:not(.disabled):not([disabled]),
+.btn.btn-orange.focus:not(.disabled):not([disabled]),
+.btn.btn-orange:active:not(.disabled):not([disabled]),
+.btn.btn-orange.active:not(.disabled):not([disabled]) {
+    background-color: #eb9f12;
+    box-shadow: none;
+    border-color: #df830a;
+    color: #fff;
+    color: #fef8e2;
+}
+
+.btn.btn-orange.btn-shadow {
+    box-shadow: 0px 5px 10px 2px rgba(243, 215, 104, 0.24) !important;
+}
 .btn.btn-secondary {
     color: #fff;
     background-color: #a8adb9;
