@@ -68,6 +68,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 
                         <div class="col col-3 ">                            
                             <div class="form-row">
                                 <div class="form-group col-md-5 justify-content-center">
@@ -75,7 +76,8 @@
                                         <input type="date" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}-" class="form-control" id="fecha_liquidacion" name="fecha_liquidacion" value="<?php echo set_value('fecha_liquidacion'); ?>" placeholder="Fecha de Liquidacíon">
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+                        -->
                     </div>
                     <div class="row">
                         <div class="col col-8 align-items-start ">
@@ -98,7 +100,7 @@
                     <div class="row">
                         <div class="col col-8 align-items-start ">
                             <div class="form-row ">
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Afiliado</label>
                                     <select class="form-control"  id="afiliado_id" name="afiliado_id"></select>
                                     <!-- <input type="text" class="form-control" id="afiliado_nombre" name="afiliado_nombre" value=""  placeholder="Afiliado"> -->
@@ -109,7 +111,7 @@
                                     <input type="text" class="form-control" id="municipio_nombre" name="municipio_nombre" placeholder="Cod. Nº">
                                     <input type="hidden" class="form-control" id="municipio_id" name="municipio_id" >
                                 </div>
-                                <div class="form-group col-md-1">
+                                <div class="form-group col-md-2">
                                     <label for="monto" class="col-form-label">Legajo</label>
                                     <input type="text" class="form-control" id="legajo" name="legajo" value=""  placeholder="Legajo Nº">
                                 </div>

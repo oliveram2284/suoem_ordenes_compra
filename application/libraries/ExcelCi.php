@@ -56,26 +56,43 @@ class ExcelCi{
 
             $date_temp=explode('-',$item['I']); 
 
+           
+            //continue;
+            /*
             $date_added=$date_temp['2'].'-'.$date_temp['1'].'-'.$date_temp['0']; 
             $date_temp=explode('-',$item['J']);
             $date_activation=$date_temp['2'].'-'.$date_temp['1'].'-'.$date_temp['0']; 
              
-            $municipio=$this->ci->Municipios->getByName($item['G']);
-           
+            $municipio=$this->ci->Municipios->getByName($item['G']);*/
+
+            //Separar fullname en name & lastname
+            $fullname=str_replace('#','', $item['D']);
+            $name_array=explode(' ',$fullname);
+            $firstname = $name_array[0];
+            unset($name_array[0]);
+            $lastname = implode(' ',$name_array);
+            
             $data_insert=array(
                 //'nro'=>$item['A'],
-                'lastname'=>$item['B'],
-                'firstname'=>$item['C'],
-                'dni'=>($item['D']!=NULL)?str_replace(',','',$item['D']):'',
-                'legajo'=>$item['E'],
+                'rep'=>$item['A'],
+                'legajo'=>$item['B'],
+                'dv'=>$item['C'],
+                'firstname'=>utf8_decode($firstname),
+                'lastname'=>utf8_decode($lastname),                
+                'tipo_doc'=>$item['E'],
+                'dni'=>($item['F']!=NULL)?str_replace(',','',$item['F']):'',
+                'clase'=>$item['G'],
+                'address'=>utf8_decode($item['H']),
+                'nro'=>$item['I'],
+                'municipio_id'=>1,
                 //'observation'=>$item['H'],
                 //'municipality_code'=>$item['F'],
-                'municipio_id'=>(empty($municipio))?$municipio['id']:1,
-                'date_added'=>( $item['I'] )? date("Y-m-d",strtotime($date_added)) : null,
+                //'municipio_id'=>(empty($municipio))?$municipio['id']:1,
+                'date_added'=>date("Y-m-d H:i:s"),
                 //'date_activation'=>( $item['I'] )? date("Y-m-d",strtotime($date_activation)) : null,
                 'status' => 1
             );
-            //var_dump($data_insert);
+           // var_dump($data_insert);
             //continue;
             $this->ci->db->where('dni',$data_insert['dni']);
             $query=$this->ci->db->get('afiliados');
@@ -92,6 +109,7 @@ class ExcelCi{
             }
             
         }
+        //die("fin");
         return array('total_rows'=>$total_rows, 'inserted'=>$total_inserted,'updated'=>$total_updated);
 
     }

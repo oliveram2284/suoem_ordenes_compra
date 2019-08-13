@@ -68,6 +68,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 
                         <div class="col col-3 ">                            
                             <div class="form-row">
                                 <div class="form-group col-md-5 justify-content-center">
@@ -75,7 +76,7 @@
                                         <input type="date" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}-" class="form-control" id="fecha_liquidacion" name="fecha_liquidacion" data-value="<?php echo $data['orden']['fecha_liquidacion']; ?>" value="<?php echo date('d-m-Y'); ?>" placeholder="Fecha de Liquidacíon">
                                 </div>
                             </div>
-                        </div>
+                        </div>  -->
                     </div>
                     <div class="row">
                         <div class="col col-8 align-items-start ">
@@ -86,7 +87,7 @@
                                     <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value="<?php echo $data['comercio']['nombre']; ?>"  placeholder="Nombre Comercio" readonly>
                                 </div>
 
-                                <div class="form-group col-md-1">
+                                <div class="form-group col-md-2">
                                     <label for="monto" class="col-form-label">Cod. Nº</label>
 
                                     <input type="text" class="form-control text-right" id="comercio_codigo" name="comercio_codigo" value="<?php echo $data['comercio']['codigo']; ?>"  placeholder="Cod. Nº" readonly>
@@ -98,7 +99,7 @@
                     <div class="row">
                         <div class="col col-8 align-items-start ">
                             <div class="form-row ">
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Afiliado</label>
                                     
                                     <input type="text" class="form-control" id="afiliado_nombre"  value="<?php echo $data['afiliado']['lastname'].''.$data['afiliado']['firstname']; ?>"  placeholder="Afiliado" readonly>
@@ -112,7 +113,7 @@
                                     <input type="text" class="form-control" id="municipio_nombre" name="municipio_nombre" placeholder="Cod. Nº" value="<?php echo $data['afiliado']['municipio_id']; ?>" readonly>
                                     <input type="hidden" class="form-control" id="municipio_id" name="municipio_id" readonly>
                                 </div>
-                                <div class="form-group col-md-1">
+                                <div class="form-group col-md-2">
                                     <label for="monto" class="col-form-label">Legajo</label>
                                     <input type="text" class="form-control" id="legajo" name="legajo" value="<?php echo $data['afiliado']['legajo']; ?>"  placeholder="Legajo Nº" readonly>
                                 </div>
