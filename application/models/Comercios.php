@@ -81,6 +81,51 @@ class Comercios extends CI_Model {
             )
         ));
         $this->dbforge->create_table('sucursales',true);
+
+
+        $this->dbforge->add_field('id');
+        $this->dbforge->add_field(array(
+
+            'comercio_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>NULL
+            ),
+            'username' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'DEFAULT' =>''
+            ),
+            'firstname' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'DEFAULT' =>''
+            ),
+            'lastname' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'DEFAULT' =>''
+            ),
+            'password' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'DEFAULT' =>''
+            ),
+            'user_group_id' => array(
+                'type' => 'INT',
+                'constraint' => 2,
+                'DEFAULT' =>3
+            ),
+            'status' => array(
+                'type' => 'INT',
+                'constraint' => 2,
+                'DEFAULT' =>0
+            ),
+            'created' => array(
+                'type' => 'DATETIME',
+            ),
+        ));
+        $this->dbforge->create_table('comercio_users',true);
     }
 
     public function getById($id=null){
@@ -135,6 +180,31 @@ class Comercios extends CI_Model {
         //echo $this->db->last_query();
         return  $query->result_array();
     }
+
+
+
+    public function getUsers($comercio_id){
+        $this->db->where('comercio_id',$comercio_id);
+        $query = $this->db->get('comercio_users');
+        return $query->result();
+    }
+
+    public function insertUsers($comercio_id)
+    {   
+        $data = array(
+            'comercio_id'   => $comercio_id,
+            'username'      => $this->input->post('username'),
+            'firstname'     => $this->input->post('firstname'),
+            'lastname'      => $this->input->post('lastname'),
+            'password'      => md5($this->input->post('password')),
+            //'user_group_id' => $this->input->post('user_group_id'),
+            'status'        =>1,
+            'created'       => date('Y-m-d H:i:s'),
+        ); 
+
+        return $this->db->insert('comercio_users', $data);
+    }
+
 
 
 

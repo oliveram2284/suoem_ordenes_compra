@@ -6,7 +6,7 @@
                 <div class="list">
                     <div class="list-item pl-0">
                         <div class="list-thumb ml-0 mr-3 pr-3  b-r text-muted">
-                            <i class="icon-Money-2"></i>
+                            <i class="icon-Shop-2"></i>
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
@@ -64,9 +64,9 @@
                                 <td><?php echo $comercio->cuit?></td>
                                 <td class="text-center"><?php echo $comercio->estado?></td>
                                 <td>
-                                <a href="<?php echo site_url('comercio/edit/'.$comercio->id);?>" class="bt-edit btn-icon-o btn-success radius100 btn-icon-sm mr-2 mb-2" title="Editar"><i class="fa fa-edit"></i></a>
-                                <a href="<?php echo site_url('comercio/delete/'.$comercio->id);?>" class="bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>
-                                <a href="<?php echo site_url('comercio/edit'.$comercio->id);?>" class="invisible bt-info btn-icon-o btn-warning radius100 btn-icon-sm mr-2 mb-2" title="Informe"><i class="fa fa-address-book"></i></a>
+                                <a href="<?php echo site_url('comercio/edit/'.$comercio->id);?>" class="bt-edit btn btn-icon-o btn-success radius100 btn-icon-sm mr-2 mb-2" title="Editar"><i class="fa fa-edit"></i></a>
+                                <a href="<?php echo site_url('comercio/delete/'.$comercio->id);?>" class="bt-delete btn btn-icon-o btn-border-o btn-icon-sm btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>
+                                <a href="<?php echo site_url('comercio/users/'.$comercio->id);?>" class=" btn btn-icon-o btn-purple radius100 btn-icon-sm mr-2 mb-2" title="Usuarios"><i class="fas fa-users"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach;?>

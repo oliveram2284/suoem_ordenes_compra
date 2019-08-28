@@ -233,6 +233,61 @@ class Comercio extends CI_Controller {
     }
 
 
+    public function users($comercio_id){
+        $usuarios=$this->Comercios->getUsers($comercio_id);
+        
+      
+        $this->load->view('layout/header');
+        $this->load->view('comercios/users',array('comercio_id'=>$comercio_id,'usuarios'=>$usuarios));      
+        $data['scripts'][]=null;
+		$this->load->view('layout/footer',$data);
+    }
+
+    public function user_add($comercio_id){	 
+		
+		$this->form_validation->set_rules('username', 'Nombre de Usuario',
+        'required|is_unique[comercio_users.username]',
+        array(
+                'required'      => 'User no ha completado "Nombre de Usuario".',
+                'is_unique'     => 'El Nombre de Usuario ya existe.'
+        ));
+		$this->form_validation->set_rules('password', 'Contraseña', 'required',
+		array(
+				'required'      => 'User no ha completado %s.'
+		));
+
+		/*$this->form_validation->set_rules('user_group_id', 'Grupo', 'required',
+		array(
+				'required'      => 'Debe seleccionar un %s.'
+		));*/		
+
+
+		if ($this->form_validation->run())
+		{   
+
+                      
+			$this->Comercios->insertUsers($comercio_id);
+			$this->session->set_flashdata('msg', 'Nuevo Usuario Agregado');
+			redirect('comercio/users/'.$comercio_id);
+		}
+		else
+		{
+			$this->load->view('layout/header');
+			
+			//$data['user_groups'] =$this->Users->getGroups();
+			$data['comercio'] =null;
+			$data['action'] = "comercio/user_add/".$comercio_id;
+			$this->load->view('comercios/user_form',$data);
+			
+			
+			//$data['scripts'][]='user/add.js';
+			$this->load->view('layout/footer',$data);
+		}
+		
+		
+    }
+
+
 
     
     
