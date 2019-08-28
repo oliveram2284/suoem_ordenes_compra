@@ -10,7 +10,7 @@
                         </div>
                         <div class="list-body">
                             <div class="list-title fs-2x">
-                                <h2>Adherentes</h2>
+                                <h2>Afiliados</h2>
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                     <ol class="breadcrumb no-padding bg-trans mb-30">
                         <li class="breadcrumb-item"><a href="index.html"><i class="icon-Home mr-2 fs14"></i></a></li>
                         <li class="breadcrumb-item">Inicio</li>
-                        <li class="breadcrumb-item active">Adherentes</li>
+                        <li class="breadcrumb-item active">Afiliados</li>
                     </ol>
                 </nav>
             </div>
@@ -36,7 +36,7 @@
         <div class="portlet-box portlet-gutter ui-buttons-col mb-30">
             <div class="portlet-header flex-row flex d-flex align-items-center b-b">
                 <div class="flex d-flex flex-column">
-                    <h3>Importar Adherentes</h3> 
+                    <h3>Importar Afiliados</h3> 
                     <span class="portlet-subtitle">Seleccione un archivo xls o xlsx</span>
                 </div>
             </div>

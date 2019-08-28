@@ -13,7 +13,8 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		if(!$this->auth->is_logged()){
-			redirect('login', 'refresh');
+			//redirect('login', 'refresh');
+			redirect('inicio', 'refresh');
 		}
 		$permisos=$this->auth->permisos();
 
@@ -32,6 +33,9 @@ class Dashboard extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function inicio(){
+		$this->load->view('inicio');
+	}
 	public function login(){
 		
 		if($this->input->post('username')!=null){
