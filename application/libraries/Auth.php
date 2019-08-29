@@ -57,8 +57,8 @@ class Auth{
         return (isset($result['permission']))?$result['permission']:null;
     }
 
-    public function permisos_comercio(){
-        $result=$this->ci->Users->getGroupId($this->ci->session->userdata['user_group_id']);        
+    public function comercio_permisos(){
+        $result=array('permission'=>'comercio_panel');      
         return (isset($result['permission']))?$result['permission']:null;
     }
     public function allow($accion){
