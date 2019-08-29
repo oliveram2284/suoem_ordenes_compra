@@ -10,8 +10,7 @@ class Dashboard extends CI_Controller {
 		
 		
     }
-	public function index()
-	{
+	public function index(){
 		if(!$this->auth->is_logged()){
 			//redirect('login', 'refresh');
 			redirect('inicio', 'refresh');
@@ -33,8 +32,29 @@ class Dashboard extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+
+
+
 	public function inicio(){
 		$this->load->view('inicio');
+	}
+
+
+	public function comercio_dashboard(){
+		
+		/*var_dump($this->session->get_userdata());
+		var_dump($this->session->get_userdata('comercio_id'));
+		*/
+		if(!$this->auth->is_logged()){
+			//redirect('login', 'refresh');
+			redirect('inicio', 'refresh');
+		}
+
+		$permisos=$this->auth->comercio_permisos();
+
+		$this->load->view('comercio_panel/header',array('permisos'=>$permisos));
+		$this->load->view('comercio_panel/dashboard',array());
+		$this->load->view('comercio_panel/footer');
 	}
 	public function login(){
 		
@@ -45,6 +65,22 @@ class Dashboard extends CI_Controller {
 		
 		$this->load->view('login');
 	}
+
+	public function comercio_login(){
+		
+		if($this->input->post('username')!=null){
+
+			
+			
+			$this->auth->login_comercio($this->input->post());
+			//var_dump($this->session->get_userdata());
+			//die("fin");
+			redirect('/comercios/panel', 'refresh');
+		}
+		
+		$this->load->view('login2');
+	}
+
 
 	public function logout(){
 		$this->auth->logout();

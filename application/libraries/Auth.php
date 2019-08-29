@@ -7,6 +7,7 @@ class Auth{
     public function __construct(){
         $this->ci =& get_instance();
         $this->ci->load->model('Users');
+        $this->ci->load->model('Comercios');
         
     }
     public function is_logged()
@@ -20,6 +21,23 @@ class Auth{
         if(!empty($result) && $result['password']==$temp_password){
 
             unset($result['password']);
+            $result['user_type']='user';
+            $this->ci->session->set_userdata($result);
+            return true;
+            
+        }
+        
+        return false;
+    }
+
+    public function login_comercio($user_data){
+        $result=$this->ci->Comercios->getByUsername($user_data['username']);
+        
+        $temp_password=md5($user_data['password']);        
+        if(!empty($result) && $result['password']==$temp_password){
+
+            unset($result['password']);
+            $result['user_type']='comercio';
             $this->ci->session->set_userdata($result);
             return true;
             
@@ -35,6 +53,11 @@ class Auth{
     }
 
     public function permisos(){
+        $result=$this->ci->Users->getGroupId($this->ci->session->userdata['user_group_id']);        
+        return (isset($result['permission']))?$result['permission']:null;
+    }
+
+    public function permisos_comercio(){
         $result=$this->ci->Users->getGroupId($this->ci->session->userdata['user_group_id']);        
         return (isset($result['permission']))?$result['permission']:null;
     }

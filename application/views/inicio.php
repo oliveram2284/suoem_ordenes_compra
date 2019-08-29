@@ -31,13 +31,11 @@
                                     <h5 class='text-center h5 pt-10 mb-0 text-dark'>Bienvenido</h5>
                                 </div>
                                 <div class="row p-3 pt-30 pb-30">
-                                    <div class="col col-6 col-xs-12 text-center">
-                                       
-                                        <a href="<?php echo base_url('/login')?>" class="btn btn-info">INGRESO SUOEM</a>
+                                    <div class="col col-6 col-xs-12 text-center">                                       
+                                        <a href="<?php echo base_url('login')?>" class="btn btn-info">INGRESO SUOEM</a>
                                     </div>
-                                    <div class="col col-6 col-xs-12 text-center">
-                                       
-                                        <a href="<?php echo base_url('/login-comercio')?>" class="btn btn-info">INGRESO COMERCIO</a>
+                                    <div class="col col-6 col-xs-12 text-center">                                       
+                                        <a href="<?php echo base_url('login/comercio')?>" class="btn btn-info">INGRESO COMERCIO</a>
                                     </div>
                                 </div>                                
                             </div>

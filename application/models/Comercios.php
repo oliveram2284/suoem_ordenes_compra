@@ -189,6 +189,18 @@ class Comercios extends CI_Model {
         return $query->result();
     }
 
+    public function getByUsername($username=false){
+        if(!$username){
+            return null;
+        }
+
+        $query = $this->db->get_where('comercio_users',array('username'=>$username));
+        $result = $query->row_array();
+        
+        return $result;
+    }
+    
+
     public function insertUsers($comercio_id)
     {   
         $data = array(
@@ -204,6 +216,9 @@ class Comercios extends CI_Model {
 
         return $this->db->insert('comercio_users', $data);
     }
+
+
+    
 
 
 
