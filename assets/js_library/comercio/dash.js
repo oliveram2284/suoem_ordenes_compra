@@ -10,10 +10,13 @@ $('#buscar').click(function(){
 });
 
 function buscarOrden(){
+    var url = $("#url").val();
+    console.log("===> url: %o",url);
     $.ajax({
-        type: 'POST',
-        data: { nro : $('#norden').val() },
-    url: '../orden/buscarOrden',
+        type: 'GET',
+        data: null,
+    //url: url+'orden/buscarOrden/'+$('#norden').val(),
+    url:url+'dashboard/buscarOrden/'+$('#norden').val(),
     success: function(result){
                     if(!result){
                         Limpiar();

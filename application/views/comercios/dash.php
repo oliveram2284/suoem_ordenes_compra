@@ -93,3 +93,6 @@
                         </div>
                     </div>
                 </div>
+
+                
+<input type="hidden" value="<?php echo base_url();?>" id="url">
