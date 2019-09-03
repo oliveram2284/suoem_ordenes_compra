@@ -515,7 +515,7 @@ class Ordenes extends CI_Model {
                     'visto' 	  => 1
                 );
 
-                if($this->db->update('ordenes', $data, array('id'=>$o[0]['id'])) == false) {
+                if($this->db->update('ordenes', $data, array('id'=>$o['id'])) == false) {
                     return false;
                 }
                 $o['fecha_visto'] = date('d-m-Y H:i');

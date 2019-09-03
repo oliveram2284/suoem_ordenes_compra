@@ -4,11 +4,12 @@
                         <div class="col-sm-2">
                             <label>Número de Orden: </label>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <input type="number" class="form-control" id="norden" name="norden" value="" placeholder="Ingrese el número de orden a buscar">
                         </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary btn-block" id="buscar">Buscar</button>
+                        <div class="col-sm-4">
+                            <button class="btn btn-secondary " id="buscar">Buscar</button>
+
                         </div>
                     </div>
                     <hr>
