@@ -42,6 +42,7 @@ class Orden extends CI_Controller {
 
     function add(){
        
+        
         $this->form_validation->set_rules('monto', 'Monto','required|numeric|min_length[1]',
             array(
                 'required'      => 'Monto es obligatorio.',

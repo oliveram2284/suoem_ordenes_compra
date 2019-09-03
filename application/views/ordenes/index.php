@@ -53,7 +53,6 @@
                     <th  class="text-center">Importe Total</th>
                     <th  class="text-center">Cuotas</th>
                     <th  class="text-center">Valor Cuotas</th>
-                    <th  class="text-center">Fecha De Liquidación</th>
                     <th  class="text-center">Fecha Agregado</th>
                     <th  class="text-center">Estado</th>
                     <th class="text-center">-</th>

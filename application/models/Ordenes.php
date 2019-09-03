@@ -217,7 +217,7 @@ class Ordenes extends CI_Model {
 
        
         //$this->db->select("CONCAT(a.lastname,' ',a.firstname) as fullname, a.id as adherent_id,m.*, DATE_FORMAT(m.date_added, '%d-%m-%Y')as fecha, (select count(*) from asistencias_cuotas as ac where ac.asistencia_id = m.id and ac.status = 1) as pagas");
-        $this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha");
+        $this->db->select("o.*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha");
         $this->db->from('ordenes as o');
         $this->db->join('afiliados as a ','o.afiliado_id=a.id');
         $this->db->join('comercios as c ','o.comercio_id=c.id');
