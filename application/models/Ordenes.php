@@ -179,6 +179,36 @@ class Ordenes extends CI_Model {
         $this->dbforge->create_table('orden_logs',true);     
 
 
+
+        $this->dbforge->add_field('id');
+        $this->dbforge->add_field(array(
+            'orden_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),   
+            'user_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),            
+            'mensaje' => array(   //500
+                'type' => 'TEXT',
+                'DEFAULT' =>null
+            ),
+            
+            'estado' => array(
+                'type' => 'INT',
+                'constraint' => '1',
+                'DEFAULT' =>0
+            ),
+
+            'fecha' => array(
+                'type' => 'DATETIME',
+            ),
+
+        ));        
+        $this->dbforge->create_table('ordenes_mensajes',true);     
         
         
         
