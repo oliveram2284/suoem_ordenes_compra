@@ -39,7 +39,7 @@
                         </li>
 
                     </ul>
-
+                    <a class="btn btn-info float-right" id="login" href="<?php echo base_url('login/comercio')?>"><i class="icon-User"></i> Ingresar Como Comercio</a>
                 </header>
 
 

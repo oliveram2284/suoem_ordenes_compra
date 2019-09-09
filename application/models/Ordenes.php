@@ -179,6 +179,36 @@ class Ordenes extends CI_Model {
         $this->dbforge->create_table('orden_logs',true);     
 
 
+
+        $this->dbforge->add_field('id');
+        $this->dbforge->add_field(array(
+            'orden_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),   
+            'user_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'DEFAULT' =>0
+            ),            
+            'mensaje' => array(   //500
+                'type' => 'TEXT',
+                'DEFAULT' =>null
+            ),
+            
+            'estado' => array(
+                'type' => 'INT',
+                'constraint' => '1',
+                'DEFAULT' =>0
+            ),
+
+            'fecha' => array(
+                'type' => 'DATETIME',
+            ),
+
+        ));        
+        $this->dbforge->create_table('ordenes_mensajes',true);     
         
         
         
@@ -217,7 +247,7 @@ class Ordenes extends CI_Model {
 
        
         //$this->db->select("CONCAT(a.lastname,' ',a.firstname) as fullname, a.id as adherent_id,m.*, DATE_FORMAT(m.date_added, '%d-%m-%Y')as fecha, (select count(*) from asistencias_cuotas as ac where ac.asistencia_id = m.id and ac.status = 1) as pagas");
-        $this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha");
+        $this->db->select("o.*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,c.nombre as comercio_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha");
         $this->db->from('ordenes as o');
         $this->db->join('afiliados as a ','o.afiliado_id=a.id');
         $this->db->join('comercios as c ','o.comercio_id=c.id');
@@ -577,32 +607,37 @@ class Ordenes extends CI_Model {
     }
 
     public function buscarOrden($data = null){
+        
         $nroOrden = $data['nro'];
 
         $this->db->select('o.id, o.nro, o.monto, DATE_FORMAT(o.date_added, "%d-%m-%Y") as date_added, DATE_FORMAT(o.fecha_liquidacion, "%d-%m-%Y") as fecha_liquidacion, a.firstname, a.lastname, a.legajo, m.nombre, m.code, c.razon_social, c.codigo, DATE_FORMAT(o.fecha_visto, "%d-%m-%Y %H:%i") as fecha_visto, u.firstname as userfn, u.lastname as userln');
         $this->db->from('ordenes as o');
-        $this->db->where('nro',$nroOrden);
+       
         $this->db->join('afiliados as a','a.id=o.afiliado_id');
         $this->db->join('municipios as m', 'm.id=a.municipio_id');
         $this->db->join('comercios as c', 'c.id=o.comercio_id');
         $this->db->join('users as u', 'u.id=o.user_id');
+        $this->db->where('o.nro',$nroOrden);
         $query=$this->db->get();
-        
+        //echo $this->db->last_query();
         if($query->num_rows() > 0){
             //Hay resultados
-            $o = $query->result_array();
-            if($o[0]['fecha_visto'] == null){
+            $o = $query->row_array();
+            if($o['fecha_visto'] == null){
                 $data = array(
                     'fecha_visto' => date('Y-m-d H:i:s'),
                     'visto' 	  => 1
-                 );
+                );
 
-                if($this->db->update('ordenes', $data, array('id'=>$o[0]['id'])) == false) {
+                if($this->db->update('ordenes', $data, array('id'=>$o['id'])) == false) {
                     return false;
                 }
-                $o[0]['fecha_visto'] = date('d-m-Y H:i');
-            }
-            return $o[0];
+                $o['fecha_visto'] = date('d-m-Y H:i');
+                           
+            }           
+            $o['monto'] = number_format($o['monto'],'2',',','.');    
+            // var_dump($o);
+            return $o;
         }
         else{
             return false;

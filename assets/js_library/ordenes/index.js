@@ -32,7 +32,7 @@ $(document).ready(function() {
             { "className": "text-left fcol", "targets": [1] },
            /* { "className": "text-right", "targets": [7] },*/
            
-           { "className": "text-left", "targets": [9] },
+           { "className": "text-left", "targets": [8] },
             { "className": "text-center", "targets": "_all" },
         ],
         ajax: {
@@ -52,7 +52,7 @@ $(document).ready(function() {
                     col4 = parseFloat(item.monto).toFixed(2);
                     col5 = item.cuotas;
                     col6 = parseFloat(item.monto_total_cuota).toFixed(2);
-                    col7 = item.fecha_liquidacion;
+                    //col7 = item.fecha_liquidacion;
                     col8 = item.fecha;
                     //col6 = item.date_cancelation;
                     col9 = (item.estado == 1) ? 'Activo' : 'Cancelado';
@@ -80,7 +80,7 @@ $(document).ready(function() {
                     }*/
                     //col8 += '<a href="#" data-id="' + item.id + '" class="bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-2 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';
 
-                    output.push([col1, col2, col3, col4, col5, col6, col7, col8, col9, col10]);
+                    output.push([col1, col2, col3, col4, col5, col6, col8, col9, col10]);
                 });
                 return output;
             },

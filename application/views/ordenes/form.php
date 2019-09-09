@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="page-content">
-    <div class="container-fluid">
+    <div class="container">
    
 
         <div class="portlet-box portlet-gutter ui-buttons-col mb-30">
@@ -46,28 +46,35 @@
                 <?php echo form_open($action,array('method'=>'post')); ?>
                     
                     <div class="form-group row bg-gradient-success ">
-                        <div class="col-lg-4">
-                            <label for="adherent_nro" class="col-form-label">Orden Nº</label>
+                        <div class="col-6">
+                            <label for="nro" class="col-form-label">Orden Nº</label>
                             <input type="text" class="form-control"  id="nro" name="nro" value="" placeholder="Orden Nº" >
+                            <label id="username-error" class="error" for="nro"><?php echo form_error('nro'); ?></label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col col-4 align-items-start ">
+                    <div class="row ">
+                        <div class="col col-6  ">
                             <div class="form-row ">                            
                                 <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Importe Total</label>
                                     <input type="text" class="form-control" id="monto" name="monto" value="<?php echo set_value('monto'); ?>" placeholder="Importe Total">
+                                    <label id="username-error" class="error" for="monto"><?php echo form_error('monto'); ?></label>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Cuotas</label>
                                     <input type="text" class="form-control" id="cuotas" name="cuotas" value="<?php echo set_value('cuotas'); ?>" placeholder="Cuotas">
+                                    <label id="username-error" class="error" for="cuotas"><?php echo form_error('cuotas'); ?></label>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="monto" class="col-form-label">Valor Cuotas</label>
                                     <input type="text" class="form-control" id="monto_total_cuota" name="monto_total_cuota" value="<?php echo set_value('monto_total_cuota'); ?>" placeholder="Valor Cuotas">
+                                    <label id="username-error" class="error" for="monto_total_cuota"><?php echo form_error('monto_total_cuota'); ?></label>
                                 </div>
+                                
                             </div>
                         </div>
+                        
+
                         <!-- 
                         <div class="col col-3 ">                            
                             <div class="form-row">
@@ -80,16 +87,16 @@
                         -->
                     </div>
                     <div class="row">
-                        <div class="col col-8 align-items-start ">
+                        <div class="col col-6 align-items-start ">
                             <div class="form-row ">
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-8">
                                     <label for="monto" class="col-form-label">Nombre Comercio</label>
                                     <select class="form-control"  id="comercio_id" name="comercio_id"></select>
                                     <!--
                                     <input type="text" class="form-control" id="comercio_nombre" name="comercio_nombre" value=""  placeholder="Nombre Comercio"> -->
                                 </div>
 
-                                <div class="form-group col-md-1">
+                                <div class="form-group col-4">
                                     <label for="monto" class="col-form-label">Cod. Nº</label>
                                     <input type="text" class="form-control text-right" id="comercio_codigo" name="comercio_codigo" value=""  placeholder="Cod. Nº">
                                 </div>
@@ -98,20 +105,20 @@
                     </div>
 
                     <div class="row">
-                        <div class="col col-8 align-items-start ">
+                        <div class="col col-6 align-items-start ">
                             <div class="form-row ">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-6">
                                     <label for="monto" class="col-form-label">Afiliado</label>
                                     <select class="form-control"  id="afiliado_id" name="afiliado_id"></select>
                                     <!-- <input type="text" class="form-control" id="afiliado_nombre" name="afiliado_nombre" value=""  placeholder="Afiliado"> -->
                                 </div>
 
-                                <div class="form-group col-md-1">
+                                <div class="form-group col-3">
                                     <label for="monto" class="col-form-label">Municipio</label>
                                     <input type="text" class="form-control" id="municipio_nombre" name="municipio_nombre" placeholder="Cod. Nº">
                                     <input type="hidden" class="form-control" id="municipio_id" name="municipio_id" >
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-3">
                                     <label for="monto" class="col-form-label">Legajo</label>
                                     <input type="text" class="form-control" id="legajo" name="legajo" value=""  placeholder="Legajo Nº">
                                 </div>

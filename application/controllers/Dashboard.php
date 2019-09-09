@@ -7,7 +7,7 @@ class Dashboard extends CI_Controller {
 		//$this->load->model('Adherents');
 		//$this->load->model('Aportes');
 		//$this->load->model('Asistencias');
-		
+		$this->load->model('Ordenes');
 		
     }
 	public function index(){
@@ -91,13 +91,17 @@ class Dashboard extends CI_Controller {
 		
 	}
 
-	public function consulta()
-	{
+	public function consulta(){
 		$this->load->view('layout/headerCliente');
 		$this->load->view('comercios/dash');
 		$data['scripts'][]='js_library/comercio/dash.js';
         $this->load->view('layout/footer',$data);
 		//$this->load->view('layout/footer');
 	}
+
+	public function buscarOrden($orden_nro){
+		 $this->load->model('Ordenes');
+        echo json_encode($this->Ordenes->buscarOrden(array('nro'=>$orden_nro)));
+    }
 
 }
