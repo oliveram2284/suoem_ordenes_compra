@@ -49,12 +49,12 @@ class Dashboard extends CI_Controller {
 			//redirect('login', 'refresh');
 			redirect('inicio', 'refresh');
 		}
-
 		$permisos=$this->auth->comercio_permisos();
 
 		$this->load->view('comercio_panel/header',array('permisos'=>$permisos));
 		$this->load->view('comercio_panel/dashboard',array());
-		$this->load->view('comercio_panel/footer');
+		$data['scripts'][]='js_library/ordenes/index_comercio.js';
+		$this->load->view('comercio_panel/footer',$data);
 	}
 	public function login(){
 		

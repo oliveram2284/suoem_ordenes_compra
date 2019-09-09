@@ -6,6 +6,7 @@ class Comercio extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('Comercios');
+        $this->load->model('Ordenes');
         //$this->Users->updateSession(true);
         if(!$this->auth->is_logged()){
 			redirect('login', 'refresh');
@@ -285,6 +286,12 @@ class Comercio extends CI_Controller {
 		}
 		
 		
+    }
+
+    public function getOrden(){
+        $data = $this->Ordenes->buscarOrden($this->input->post());
+        $response['html'] = $this->load->view('comercio_panel/order', $data, true);
+		echo json_encode($response);
     }
 
 

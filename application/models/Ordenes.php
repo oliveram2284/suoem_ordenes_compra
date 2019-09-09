@@ -277,6 +277,90 @@ class Ordenes extends CI_Model {
 		return $query->result_array();
 	}
 
+    /* Por comercio */
+    public function getTotalByComercioFiltered($data = null){
+       
+		$response = array();
+		$this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre");
+        $this->db->from('ordenes as o');
+        $this->db->join('afiliados as a ','o.afiliado_id=a.id');
+        $this->db->join('comercios as c ','o.comercio_id=c.id');
+        
+		//$this->db->where('m.status!= ',2);	
+		if($data['search']['value']!=''){
+            $this->db->or_where('o.nro ',$data['search']['value']);	
+			$this->db->or_like('a.firstname ',$data['search']['value']);	
+			$this->db->or_like('a.lastname ',$data['search']['value']);
+            //$this->db->or_like('DATE_FORMAT(a.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
+
+			//$this->db->limit($data['length'],$data['start']);
+        }	
+        $this->db->where(array('o.estado!= '=>2, 'o.comercio_id' => $this->session->get_userdata('comercio_id')['comercio_id']));	    	
+        $query = $this->db->get();
+        
+		return $query->num_rows();
+    }
+
+    public function getByComercioFiltered( $data = null){
+        $this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha, DATE_FORMAT(o.fecha_visto, '%d-%m-%Y %H:%i')as fecha_visto, o.visto");
+        $this->db->from('ordenes as o');
+        $this->db->join('afiliados as a ','o.afiliado_id=a.id');
+        $this->db->join('comercios as c ','o.comercio_id=c.id');
+
+        //var_dump($data['order']);
+        
+        switch($data['order'][0]['column']){
+            case 0:{
+                $this->db->order_by('o.id',$data['order'][0]['dir']);                
+                break;
+            }
+            case 1:{
+                $this->db->order_by('a.lastname',$data['order'][0]['dir']);                
+                $this->db->order_by('a.firstname',$data['order'][0]['dir']);                
+                break;
+            }
+            case 2:{
+                $this->db->order_by('o.monto',$data['order'][0]['dir']);               
+                break;
+            }
+            case 3:{
+                $this->db->order_by('o.interes',$data['order'][0]['dir']);               
+                break;
+            }
+            case 4:{
+                $this->db->order_by('o.monto_total',$data['order'][0]['dir']);               
+                break;
+            }
+            case 5:{
+                $this->db->order_by('o.cuotas',$data['order'][0]['dir']);               
+                break;
+            }
+            case 6:{
+                $this->db->order_by('o.monto_parcial_cuota',$data['order'][0]['dir']);               
+                break;
+            }
+            case 7:{
+                $this->db->order_by('fecha',$data['order'][0]['dir']);               
+                break;
+            }
+            default:{
+                $this->db->order_by('m.id',$data['order'][0]['dir']);
+            }
+        }
+       
+		if($data['search']['value']!=''){
+            $this->db->or_where('o.nro ',$data['search']['value']);	
+			$this->db->or_like('a.firstname ',$data['search']['value']);	
+			$this->db->or_like('a.lastname ',$data['search']['value']);			
+            //$this->db->or_like('DATE_FORMAT(m.date_added, "%d-%m-%Y %H:%i")',$data['search']['value']);
+
+        }
+        $this->db->where(array('o.estado!= '=>2, 'o.comercio_id' => $this->session->get_userdata('comercio_id')['comercio_id']));	    
+		$this->db->limit($data['length'],$data['start']);
+        $query = $this->db->get();
+        //die($this->db->last_query());
+		return $query->result_array();
+	}
 
     public function add($data){
         

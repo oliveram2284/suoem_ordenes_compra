@@ -3,14 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-class Orden extends CI_Controller {
+class orden extends CI_Controller {
 
 	function __construct(){
         parent::__construct();
         $this->load->model('Ordenes');
         //$this->load->model('Adherents');
         if(!$this->auth->is_logged()){
-			redirect('login', 'refresh');
+			//redirect('login', 'refresh');
 		}
     }
 
@@ -39,7 +39,19 @@ class Orden extends CI_Controller {
 		echo json_encode($response);
 	}
 
+    public function datatable_list_comercio(){
+        $recordsTotal=$this->Ordenes->getTotalByComercioFiltered($_REQUEST);
+        $data= $this->Ordenes->getByComercioFiltered($_REQUEST);
+        
+		$response=array(
+			'draw' => $_REQUEST['draw'],
+			'recordsTotal' => $recordsTotal,
+			'recordsFiltered' => $recordsTotal,
+			'data' => $data
+		);
 
+		echo json_encode($response);
+	}
     function add(){
        
         $this->form_validation->set_rules('monto', 'Monto','required|numeric|min_length[1]',
