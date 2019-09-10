@@ -31,9 +31,9 @@ $(function() {
         },
         "columnDefs": [
 
-            { "className": "text-center ", "targets": [0] },
+           // { "className": "text-center ", "targets": [0] },
         ],
-        dom: "<'row'<'col col-3'l><'col col-3'B><'col col-6'f>>" +
+        dom: "<'row'<'col col-2'l><'col col-8'f><'col col-2'B>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [

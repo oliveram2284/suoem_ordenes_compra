@@ -32,16 +32,16 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="form-row ml-2">
-                <div class="form-group col-md-4">
+            <div class="row ml-3 bg-white shadow-sm pt-3 pb-3">
+                <div class="form-group col-md-5">
                     Desde: <input  class="form-control" style="padding-left: 10px; padding-right: 15px;" type="date" id="datepicker_from" value="<?php echo $desde;?>" />
                     
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-5">
                     Hasta: <input  class="form-control" style="padding-left: 10px; padding-right: 15px;" type="date" id="datepicker_to" value="<?php echo $hasta;?>" />
                    
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <a id="sfilter_btn" class="bt-views btn btn-icon-o btn-primary radius100 btn-icon-sm mt-30 mr-2 mb-2" title="Filtrar">
                         <i class="fa fa-search"></i>
                     </a>
@@ -55,7 +55,7 @@
             <table id="data-table" class="datatable table table-striped table-sm table-bordered table-responsives" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th  class="text-center">Comercio</th>
+                    <th  class="text-left">Comercio</th>
                     <th  class="text-center">Cantidad de Ordenes</th>
                     <th  class="text-center">Monto Total</th>
                     
