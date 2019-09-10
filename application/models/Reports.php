@@ -7,10 +7,69 @@ class Reports extends CI_Model {
 		parent::__construct();
 	}
 
+
+
+	public function ordenes($desde, $hasta){
+		$data = array();
+		
+		$sql="
+			SELECT o.`*`,a.firstname,a.lastname,c.razon_social 
+			FROM ordenes AS o 
+			LEFT JOIN afiliados AS a ON o.afiliado_id=a.id 
+			LEFT JOIN comercios AS c ON o.comercio_id=c.id ";
+
+		if($desde < $hasta){
+			$sql.=" WHERE o.date_added>='".$desde."' && o.date_added<='".$hasta."' ";
+		}
+		$query = $this->db->query($sql);
+
+		if ($query->num_rows()!=0){
+			$data['moves'] = $query->result_array();
+		}else{
+			$data['moves'] = array();
+		}
+		
+		return $data;
+	}
+
+	public function comercios($desde, $hasta){
+
+		$this->db->select('id, razon_social');
+		$query= $this->db->get('comercios');
+		$result=array();
+
+		if ($query->num_rows()!=0){
+
+			$comercios=$query->result_array();
+
+			foreach ($comercios as $key => $value) {
+				$this->db->select('COUNT(*) as total_ordenes, IFNULL(SUM(monto), 0)  as total_importe');
+				$this->db->where("comercio_id",$value['id']);
+				$this->db->where("date_added >=",$desde);
+				$this->db->where("date_added <=",$hasta);
+
+				$query=$this->db->get('ordenes');	
+				$totales= $query->row_array();
+
+				$temp=$value;
+				$temp['total_ordenes']=$totales['total_ordenes'];
+				$temp['total_importe']=$totales['total_importe'];
+				
+				$result[]=$temp;
+			}
+
+			$data['moves'] = $result;
+		}else{
+			$data['moves'] = array();
+		}
+
+		return $data;
+	}
+
 	function Assistence($desde, $hasta){
 		//Armar las columnas necesarias para el informe
 		$data = array();
-		$query = $this->db->query('
+		/*$query = $this->db->query('
 			Select 
 				DATE_FORMAT(date_added, \'%m-%Y\') as columna FROM asistencias 
 			WHERE 
@@ -42,9 +101,9 @@ class Reports extends CI_Model {
 		else
 		{
 			$data['moves'] = array();
-		}
+		}*/
 		//--------------------------------------------
-
+		$data=array();
 		return $data;
 	}
 

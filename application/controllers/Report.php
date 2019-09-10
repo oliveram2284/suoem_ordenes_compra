@@ -6,6 +6,61 @@ class Report extends CI_Controller {
         parent::__construct();
         $this->load->model('Reports');
     }
+
+
+    public function orders(){
+        if(!isset($desde)){
+            $actual = strtotime(date("Y-m-d",time()));
+            $desde = date("Y-m-d", strtotime("-12 month", $actual));
+        }
+        if(!isset($hasta)){
+            $actual = strtotime(date("Y-m-d",time()));
+            $hasta = date("Y-m-d", strtotime("+0 month", $actual));
+        }
+        $info['desde'] = $desde;
+        $info['hasta'] = $hasta;
+        $info['data'] = $this->Reports->Ordenes($desde, $hasta);
+		$this->load->view('layout/header');
+        $this->load->view('report/ordenes', $info);      
+        
+        $data['scripts'][]='lib/data-tables/dataTables.buttons.min.js';
+        $data['scripts'][]='lib/data-tables/buttons.flash.min.js';
+        $data['scripts'][]='lib/data-tables/jszip.min.js';        
+        $data['scripts'][]='lib/data-tables/pdfmake.min.js';
+        $data['scripts'][]='lib/data-tables/vfs_fonts.js';
+        $data['scripts'][]='lib/data-tables/buttons.html5.min.js';
+        $data['scripts'][]='lib/data-tables/buttons.print.min.js';
+        $data['scripts'][]='js_library/ordenes/reports.js';
+		$this->load->view('layout/footer',$data);
+    }
+
+
+    public function comercio(){
+        if(!isset($desde)){
+            $actual = strtotime(date("Y-m-d",time()));
+            $desde = date("Y-m-d", strtotime("-12 month", $actual));
+        }
+        if(!isset($hasta)){
+            $actual = strtotime(date("Y-m-d",time()));
+            $hasta = date("Y-m-d", strtotime("+0 month", $actual));
+        }
+        $info['desde'] = $desde;
+        $info['hasta'] = $hasta;
+        $info['data'] = $this->Reports->Comercios($desde, $hasta);
+		$this->load->view('layout/header');
+        $this->load->view('report/comercio', $info);      
+        
+        $data['scripts'][]='lib/data-tables/dataTables.buttons.min.js';
+        $data['scripts'][]='lib/data-tables/buttons.flash.min.js';
+        $data['scripts'][]='lib/data-tables/jszip.min.js';        
+        $data['scripts'][]='lib/data-tables/pdfmake.min.js';
+        $data['scripts'][]='lib/data-tables/vfs_fonts.js';
+        $data['scripts'][]='lib/data-tables/buttons.html5.min.js';
+        $data['scripts'][]='lib/data-tables/buttons.print.min.js';
+        $data['scripts'][]='js_library/report/comercios.js';
+		$this->load->view('layout/footer',$data);
+    }
+
 	public function assistance($desde = null, $hasta = null)
 	{
         $info = array();

@@ -1,5 +1,6 @@
 $(function() {
-    var table_ = $("#data-table").dataTable({
+    console.log("=====>   APORTES REPORTES JS LOAD <=====");
+    var table_ = $("table").dataTable({
         pageLength: 100,
         responsive: true,
         //'processing': true,
@@ -46,14 +47,14 @@ $(function() {
                     }
                 },
                 title: '',
-                filename: 'SUOEM - Ordenes De Compra ' + Date.now(),
+                filename: 'SUOEM - Totales Comercio ' + Date.now(),
                 header: true,
                 footer: true,
                 sheetName: "Aportes",
                 className: "btn-success btn-sm"
             }, {
-                title: 'SUOEM - Ordenes De Compra ',
-                filename: 'SUOEM - Ordenes De Compra ' + Date.now(),
+                title: 'SUOEM - Totales Comercio ',
+                filename: 'SUOEM - Totales Comercio ' + Date.now(),
                 text: '<i class="fas fa-file-pdf"></i> PDF',
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
@@ -106,10 +107,16 @@ $(function() {
                         page: 'current'
                     }
                 },
-                filename: 'SUOEM - Ordenes De Compra ' + Date.now(),
-                title: 'SUOEM - Ordenes De Compra ',
+                filename: 'SUOEM - Totales Comercio ' + Date.now(),
+                title: 'SUOEM - Totales Comercio ',
                 className: "btn-danger btn-sm"
             },
         ]
     });
 });
+
+$('#filter_btn').click(function(){
+        var desde = $('#datepicker_from').val().split('/'); 
+        var hasta = $('#datepicker_to').val().split('/');
+        window.location.href = $('#url').val()+'report/assistance/'+desde+'/'+hasta;
+    });

@@ -94,6 +94,34 @@
                                         </a>
                                     </li>
                                 <?php endif;?>
+
+                                <?php if($this->auth->allow('report')):?>
+                                    <li>
+                                        <i class="icon-Monitor-Analytics nav-thumbnail"></i>
+                                        <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                            <span class="nav-text">Reportes</span>
+                                        </a>
+                                        <ul aria-expanded="false">
+                                            <!-- <li>
+                                                <span class="nav-thumbnail"></span>
+                                                <a href="<?php echo base_url('report')?>">Graficos</a>
+                                            </li> -->
+                                            <li>
+                                                <span class="nav-thumbnail"></span>
+                                                <a href="<?php echo base_url('report/orders')?>">Ordenes</a>
+                                            </li>
+                                            <li>
+                                                <span class="nav-thumbnail"></span>
+                                                <a href="<?php echo base_url('report/comercio')?>">Comercios</a>
+                                            </li>
+                                            <li>
+                                                <span class="nav-thumbnail"></span>
+                                                <a href="<?php echo base_url('report/afiliados')?>">Afiliados</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                <?php endif;?>
                                 <!-- <li class="">
                                 <li class="">
                                     <i class="icon-Monitor-Analytics nav-thumbnail"></i>

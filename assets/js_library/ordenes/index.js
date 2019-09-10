@@ -35,6 +35,10 @@ $(document).ready(function() {
            { "className": "text-left", "targets": [8] },
             { "className": "text-center", "targets": "_all" },
         ],
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         ajax: {
             'dataType': 'json',
             'method': 'POST',

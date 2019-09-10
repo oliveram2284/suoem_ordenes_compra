@@ -53,11 +53,11 @@ $(document).ready(function() {
                     //col6 = item.actived;
 
                     if (item.status == 2) {
-                        col7 = '<span class="badge text-danger-light badge-danger ml-1 badge-text anibadge">Baja</span>';
-                        col8 = '<a></a>';
+                        col7 = '<span class="badge text-danger-light badge-danger ml-1 badge-text anibadge">Eliminado</span>';
+                        col8 = '';
 
                     } else {
-                        col7 = (item.status == '1') ? '<span class="badge text-danger-light badge-danger ml-1 badge-text anibadge">Otro</span>' : '<span class="badge text-danger-light badge-success ml-1 badge-text anibadge">Habilitado</span>';
+                        col7 = (item.status == '1') ? '<span class="badge text-sucess-light badge-info ml-1 badge-text anibadge">Activo</span>' : '<span class="badge text-danger-light badge-success ml-1 badge-text anibadge">Habilitado</span>';
 
 
                         col8 = '';
