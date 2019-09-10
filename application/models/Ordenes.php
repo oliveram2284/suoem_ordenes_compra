@@ -191,7 +191,12 @@ class Ordenes extends CI_Model {
                 'type' => 'INT',
                 'constraint' => 11,
                 'DEFAULT' =>0
-            ),            
+            ),   
+            'user_type'=>array(
+                'type' =>'ENUM("1","2")',
+                'default'=>'1',
+            ),
+
             'mensaje' => array(   //500
                 'type' => 'TEXT',
                 'DEFAULT' =>null
@@ -672,6 +677,7 @@ class Ordenes extends CI_Model {
         $insert['user_id'] = $this->session->get_userdata('comercio_id')['id'];
         $insert['mensaje'] = $data['msj'];
         $insert['estado'] = 1;
+        $insert['user_type'] = 2;
         $insert['fecha'] = date('Y-m-d H:i:s');
         return $this->db->insert('ordenes_mensajes',$insert);
     }
