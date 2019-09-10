@@ -58,7 +58,7 @@ $(document).ready(function() {
                     //col10='Proximamente...';
                     
                     col10 += '<a  class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Abrir" onClick="abrirOrden('+item.nro+')"><i class="fa fa-search"></i></a>';
-                    col10 += '<a href="#" data-id="' + item.id + '" class="bt-views btn bt-delete btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Mensajes"><i class="fa fa-comments"></i></a>';                   
+                    col10 += '<a  class="bt-views btn bt-delete btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Mensajes" onClick="abrirMensajes('+item.id+')"><i class="fa fa-comments"></i></a>';                   
                    
                     if(item.visto==1){
                         col10 += '<i class="fas fa-check" style="color: Dodgerblue; cursor: pointer" title="Visto el ' + item.fecha_visto + '"></i>';
@@ -74,8 +74,6 @@ $(document).ready(function() {
             }
         }
     });
-
-    
 
     /*
     $(document).on('click', ".bt-views", function() {
@@ -245,4 +243,25 @@ function abrirOrden(nro_){
                 },
           dataType: 'json'
         });
+}
+
+var idOrdenSeleccionada;
+function abrirMensajes(id_){
+    idOrdenSeleccionada = id_;
+    $.ajax({
+        method: 'POST',
+        data: { id : id_ },
+          url: '../comercio/getMensajes',
+          success: function(result){
+                      //WaitingClose();
+                      $("#ordenMensajesBody").html(result.html);
+                      $('#ordenMensajes').modal('show');
+                
+                  },
+          error: function(result){
+                  //WaitingClose();
+                  alert(result);
+              },
+        dataType: 'json'
+      });
 }

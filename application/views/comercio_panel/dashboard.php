@@ -181,53 +181,7 @@
         </button>
       </div>
       <div class="modal-body" id="ordenDetailBody">
-            <!--
-            <?php echo form_open($action,array('method'=>'post')); ?>
-                <input type="hidden" id="aporte_id" name="aporte_id">
-                <div class="form-group row">
-                    <label for="adherent_nro" class="col-sm-3 col-form-label">Adherente</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control"  id="adherent_nro" placeholder="Nro" readonly>
-                    </div>
-                    <div class="col-sm-7">                        
-                        <input type="text" class="form-control"  id="adherent_name" readonly  placeholder="Nombre y Apellido de Adherente">
-                    </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="monto" class="col-sm-3 col-form-label">Cuota Nro</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="cuota_nro" placeholder="Cuota Nro" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="monto" class="col-sm-3 col-form-label">Monto Total</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="monto" placeholder="Monto Total" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="monto" class="col-sm-3 col-form-label">Monto Cancelado</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="monto_abonado" placeholder="Monto a Cancelar" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="monto" class="col-sm-3 col-form-label">Monto Restante</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="monto_restante" placeholder="Monto a Restante" readonly>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row">
-                    <label for="monto" class="col-sm-3 col-form-label">Monto de Pago</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="monto_paga" name="monto"  placeholder="Monto de Pago" >
-                        <label id="observation-error" class="error" for="observation">Debe Completar el campo "Monto  de Pago" antes de continuar</label>                    
-                    </div>
-                </div>
-            </form>
-            -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -237,10 +191,10 @@
 </div>
 
 <div id="ordenMensajes" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Orden de Compra</h5>
+        <h5 class="modal-title">Mensajes Orden de Compra</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

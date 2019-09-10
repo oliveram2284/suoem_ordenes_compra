@@ -643,4 +643,36 @@ class Ordenes extends CI_Model {
             return false;
         }
     }
+
+    public function buscarMensajes($data = null){
+        
+        $idOrden = $data['id'];
+        $data['msj'] = array();
+        $data['usrId'] = $this->session->get_userdata('comercio_id')['id'];
+        
+        $this->db->select('m.*, DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, u.firstname as userfn, u.lastname as userln');
+        $this->db->from('ordenes_mensajes as m');
+       
+        $this->db->join('users as u', 'u.id=m.user_id');
+        $this->db->where('m.orden_id',$idOrden);
+        $this->db->order_by('m.fecha','desc');
+        $query=$this->db->get();
+        //echo $this->db->last_query();
+        if($query->num_rows() > 0){
+            $data['msj'] = $query->result_array();
+           
+        }
+        
+        return $data;
+    }
+
+    public function setMsj($data = null){
+        $insert= array();
+        $insert['orden_id'] = $data['ord'];
+        $insert['user_id'] = $this->session->get_userdata('comercio_id')['id'];
+        $insert['mensaje'] = $data['msj'];
+        $insert['estado'] = 1;
+        $insert['fecha'] = date('Y-m-d H:i:s');
+        return $this->db->insert('ordenes_mensajes',$insert);
+    }
 }

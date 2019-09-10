@@ -294,6 +294,15 @@ class Comercio extends CI_Controller {
 		echo json_encode($response);
     }
 
+    public function getMensajes(){
+        $data = $this->Ordenes->buscarMensajes($this->input->post());
+        $response['html'] = $this->load->view('comercio_panel/messages', $data, true);
+		echo json_encode($response);
+    }
+    public function setMsj(){
+        echo json_encode($this->Ordenes->setMsj($this->input->post()));
+    }
+
 
 
     
