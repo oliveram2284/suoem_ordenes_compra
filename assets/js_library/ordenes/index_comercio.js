@@ -57,12 +57,11 @@ $(document).ready(function() {
                     //col9 = item.status;
                     //col10='Proximamente...';
                     
-                    col10 += '<a  class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Abrir" onClick="abrirOrden('+item.nro+')"><i class="fa fa-search"></i></a>';
-                    col10 += '<a  class="bt-views btn bt-delete btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Mensajes" onClick="abrirMensajes('+item.id+')"><i class="fa fa-comments"></i></a>';                   
+                    col10 += '<a href="#" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Abrir" onClick="abrirOrden('+item.nro+')"><i class="fa fa-search"></i></a>';
+                    col10 += '<a href="#" class="bt-views btn bt-delete btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Mensajes" onClick="abrirMensajes('+item.id+')"><i class="fa fa-comments"></i></a>';                   
                    
                     if(item.visto==1){
-                        col10 += '<i class="fas fa-check" style="color: Dodgerblue; cursor: pointer" title="Visto el ' + item.fecha_visto + '"></i>';
-
+                        col10 += '<a href="#" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Visto el ' + item.fecha_visto + '"><i class="fa fa-check"></i></a>';
                     }
                     
                     output.push([col1, col2, col4, col5, col6, col7, col8, col9, col10]);
@@ -250,7 +249,7 @@ function abrirMensajes(id_){
     idOrdenSeleccionada = id_;
     $.ajax({
         method: 'POST',
-        data: { id : id_ },
+        data: { id : id_, tipo: 2 },
           url: '../comercio/getMensajes',
           success: function(result){
                       //WaitingClose();

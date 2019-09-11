@@ -1,8 +1,5 @@
 $(document).ready(function() {
-
-    console.log("=====>   APORTES ADD JS LOAD <=====");
     var url = $("#url").val();
-    console.debug("====> site_url: %o", url);
     $("#observation-error").hide();
     $('#data-table').DataTable({
         pageLength: 50,
@@ -65,7 +62,8 @@ $(document).ready(function() {
                     
                     col10 += '<a href="'+url+'orden/edit/'+item.id+'" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Editar"><i class="fa fa-edit"></i></a>';
                     col10 += '<a href="#" data-id="' + item.id + '" class="bt-views btn bt-delete btn-icon-o btn-danger radius100 btn-icon-sm mr-1 mb-2" title="Eliminar"><i class="fa fa-times"></i></a>';                   
-                    
+                    col10 += '<a href="#" class="bt-views btn btn-icon-o btn-success radius100 btn-icon-sm mr-1 mb-2" title="Mensajes" onClick="abrirMensajes('+item.id+')"><i class="fa fa-comments"></i></a>';                   
+                   
                     if(item.visto==1){
                         col10 += '<a href="#"  data-id="" class="bt-views btn btn-icon-o btn-info radius100 btn-icon-sm mr-1 mb-2" title="Ver Historial"><i class="fa fa-check"></i></a>';
 
@@ -242,3 +240,24 @@ $(document).ready(function() {
     });*/
 
 });
+
+var idOrdenSeleccionada;
+function abrirMensajes(id_){
+    idOrdenSeleccionada = id_;
+    $.ajax({
+        method: 'POST',
+        data: { id : id_ , tipo: 1},
+          url: url.defaultValue + 'comercio/getMensajes',
+          success: function(result){
+                      //WaitingClose();
+                      $("#ordenMensajesBody").html(result.html);
+                      $('#ordenMensajes').modal('show');
+                
+                  },
+          error: function(result){
+                  //WaitingClose();
+                  alert(result);
+              },
+        dataType: 'json'
+      });
+}

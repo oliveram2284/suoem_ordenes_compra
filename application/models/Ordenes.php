@@ -653,15 +653,36 @@ class Ordenes extends CI_Model {
         
         $idOrden = $data['id'];
         $data['msj'] = array();
-        $data['usrId'] = $this->session->get_userdata('comercio_id')['id'];
-        
-        $this->db->select('m.*, DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, u.firstname as userfn, u.lastname as userln');
+        $data['usrId'] = $this->session->get_userdata('comercio_id')['comercio_id'];
+        /*
+        $this->db->select('m.*, DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, 
+                            case  
+                                when m.user_type = "2" then select firstname from comercio_users where comercio_id
+                                else "no definido" 
+                            End as usuarioComercio 
+                        ');
         $this->db->from('ordenes_mensajes as m');
        
-        $this->db->join('users as u', 'u.id=m.user_id');
+        //this->db->join('users as u', 'u.id=m.user_id');
         $this->db->where('m.orden_id',$idOrden);
         $this->db->order_by('m.fecha','desc');
         $query=$this->db->get();
+        */
+        $query = $this->db->query(
+            'select 
+                m.*, 
+                    DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, 
+                    case  
+                        when m.user_type = 2 then (select concat( firstname, " ", lastname) from comercio_users where comercio_id = m.user_id) 
+                        when m.user_type = 1 then (select concat( firstname, " ", lastname) from users where id = m.user_id) 
+                        else "no definido"
+                    end as usuario 
+            From 
+                ordenes_mensajes as m
+            where 
+                m.orden_id = '.$idOrden.'
+            order by m.fecha desc'
+        );        
         //echo $this->db->last_query();
         if($query->num_rows() > 0){
             $data['msj'] = $query->result_array();
@@ -671,13 +692,14 @@ class Ordenes extends CI_Model {
         return $data;
     }
 
+    //Comercio
     public function setMsj($data = null){
         $insert= array();
         $insert['orden_id'] = $data['ord'];
-        $insert['user_id'] = $this->session->get_userdata('comercio_id')['id'];
+        $insert['user_id'] = $data['tipo'] == 2 ? $this->session->get_userdata('comercio_id')['comercio_id'] : $this->session->userdata('id');
         $insert['mensaje'] = $data['msj'];
         $insert['estado'] = 1;
-        $insert['user_type'] = 2;
+        $insert['user_type'] = $data['tipo'];
         $insert['fecha'] = date('Y-m-d H:i:s');
         return $this->db->insert('ordenes_mensajes',$insert);
     }
