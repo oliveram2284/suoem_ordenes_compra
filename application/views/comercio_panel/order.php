@@ -28,7 +28,7 @@
                             <p>Monto:</p>
                         </div>
                         <div class="col-sm-4">
-                            <strong id="lblMonto"><?php echo number_format($monto, 2, '.', '');?></strong>
+                            <strong id="lblMonto"><?php echo $monto;?></strong>
                         </div>
                     </div>
                     <div class="row">
