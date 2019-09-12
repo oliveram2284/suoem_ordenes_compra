@@ -654,10 +654,11 @@ class Ordenes extends CI_Model {
         $idOrden = $data['id'];
         $data['msj'] = array();
         if($data['tipo'] == 2){
-            $data['usrId'] = $this->session->get_userdata('comercio_id')['comercio_id'];
+            $data['usrId'] = $this->session->get_userdata('comercio_id')['id'];
         } else {
             $data['usrId'] = $this->session->userdata('id');
         }
+
         /*
         $this->db->select('m.*, DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, 
                             case  
@@ -677,7 +678,7 @@ class Ordenes extends CI_Model {
                 m.*, 
                     DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, 
                     case  
-                        when m.user_type = 2 then (select concat( firstname, " ", lastname) from comercio_users where comercio_id = m.user_id) 
+                        when m.user_type = 2 then (select concat( firstname, " ", lastname) from comercio_users where id = m.user_id) 
                         when m.user_type = 1 then (select concat( firstname, " ", lastname) from users where id = m.user_id) 
                         else "no definido"
                     end as usuario 
@@ -701,7 +702,7 @@ class Ordenes extends CI_Model {
     public function setMsj($data = null){
         $insert= array();
         $insert['orden_id'] = $data['ord'];
-        $insert['user_id'] = $data['tipo'] == 2 ? $this->session->get_userdata('comercio_id')['comercio_id'] : $this->session->userdata('id');
+        $insert['user_id'] = $data['tipo'] == 2 ? $this->session->get_userdata('comercio_id')['id'] : $this->session->userdata('id');
         $insert['mensaje'] = $data['msj'];
         $insert['estado'] = 1;
         $insert['user_type'] = $data['tipo'];
