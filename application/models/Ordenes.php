@@ -337,7 +337,7 @@ class Ordenes extends CI_Model {
     }
 
     public function getByComercioFiltered( $data = null){
-        $this->db->select("*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha, DATE_FORMAT(o.fecha_visto, '%d-%m-%Y %H:%i')as fecha_visto, o.visto");
+        $this->db->select("o.*,CONCAT(a.lastname,' ',a.firstname) as afiliado_nombre,DATE_FORMAT(o.fecha_liquidacion, '%d-%m-%Y')as fecha_liquidacion, DATE_FORMAT(o.date_added, '%d-%m-%Y')as fecha, DATE_FORMAT(o.fecha_visto, '%d-%m-%Y %H:%i')as fecha_visto, o.visto");
         $this->db->from('ordenes as o');
         $this->db->join('afiliados as a ','o.afiliado_id=a.id');
         $this->db->join('comercios as c ','o.comercio_id=c.id');
@@ -692,6 +692,7 @@ class Ordenes extends CI_Model {
             $data['msj'] = $query->result_array();
            
         }
+        
         
         return $data;
     }
