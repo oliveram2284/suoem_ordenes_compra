@@ -653,7 +653,11 @@ class Ordenes extends CI_Model {
         
         $idOrden = $data['id'];
         $data['msj'] = array();
-        $data['usrId'] = $this->session->get_userdata('comercio_id')['comercio_id'];
+        if($data['tipo'] == 2){
+            $data['usrId'] = $this->session->get_userdata('comercio_id')['comercio_id'];
+        } else {
+            $data['usrId'] = $this->session->userdata('id');
+        }
         /*
         $this->db->select('m.*, DATE_FORMAT(m.fecha, "%d-%m-%Y %H:%i") as fecha_formateada, 
                             case  
